@@ -7,7 +7,7 @@
  *
  * @package 	TCCi
  */
-class Class_Names_Controller {
+class TCCi_Controller {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -15,7 +15,7 @@ class Class_Names_Controller {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Class_Names_Loader    $loader    Maintains and registers all hooks for the theme.
+	 * @var      TCCi_Loader    $loader    Maintains and registers all hooks for the theme.
 	 */
 	protected $loader;
 
@@ -110,8 +110,8 @@ class Class_Names_Controller {
 		 */
 		require_once get_template_directory() . '/inc/class-customizer.php';
 
-		$this->loader 		= new Class_Names_Loader();
-		$this->sanitizer 	= new Class_Names_Sanitize();
+		$this->loader 		= new TCCi_Loader();
+		$this->sanitizer 	= new TCCi_Sanitize();
 
 	} // load_dependencies()
 
@@ -123,7 +123,7 @@ class Class_Names_Controller {
 	 */
 	private function define_automattic_hooks() {
 
-		$theme_automattic = new Class_Names_Automattic( $this->get_theme_name(), $this->get_version() );
+		$theme_automattic = new TCCi_Automattic( $this->get_theme_name(), $this->get_version() );
 
 		$this->loader->action( 'after_setup_theme', $theme_automattic, 'jetpack_setup' );
 		$this->loader->action( 'after_setup_theme', $theme_automattic, 'wpcom_setup' );
@@ -138,7 +138,7 @@ class Class_Names_Controller {
 	 */
 	private function define_customizer_hooks() {
 
-		$theme_customizer = new Class_Names_Customizer( $this->get_theme_name(), $this->get_version() );
+		$theme_customizer = new TCCi_Customizer( $this->get_theme_name(), $this->get_version() );
 
 		$this->loader->action( 'customize_register', 					$theme_customizer, 'register_panels' );
 		$this->loader->action( 'customize_register', 					$theme_customizer, 'register_sections' );
@@ -157,7 +157,7 @@ class Class_Names_Controller {
 	 */
 	private function define_menu_hooks() {
 
-		$theme_menu = new Class_Names_Menukit( $this->get_theme_name(), $this->get_version() );
+		$theme_menu = new TCCi_Menukit( $this->get_theme_name(), $this->get_version() );
 
 		//$this->loader->filter( 'walker_nav_menu_start_el', 		$theme_menu, 'dashicon_before_menu_item', 10, 4 );
 		//$this->loader->filter( 'walker_nav_menu_start_el', 		$theme_menu, 'dashicon_after_menu_item', 10, 4 );
@@ -179,7 +179,7 @@ class Class_Names_Controller {
 	 */
 	private function define_metabox_hooks() {
 
-		$theme_metaboxes = new Class_Names_Metaboxes( $this->get_theme_name(), $this->get_version() );
+		$theme_metaboxes = new TCCi_Metaboxes( $this->get_theme_name(), $this->get_version() );
 
 		$this->loader->action( 'add_meta_boxes', 				$theme_metaboxes, 'add_metaboxes' );
 		$this->loader->action( 'save_post', 					$theme_metaboxes, 'validate_meta', 10, 2 );
@@ -199,7 +199,7 @@ class Class_Names_Controller {
 	 */
 	private function define_theme_hooks() {
 
-		$theme_hooks = new Class_Names_Themehooks( $this->get_theme_name(), $this->get_version() );
+		$theme_hooks = new TCCi_Themehooks( $this->get_theme_name(), $this->get_version() );
 
 		$this->loader->action( 'tcci_header_top', 			$theme_hooks, 'header_wrap_start', 10 );
 		$this->loader->action( 'tcci_header_top', 			$theme_hooks, 'site_branding_start', 15 );
@@ -243,7 +243,7 @@ class Class_Names_Controller {
 	 */
 	private function define_utility_hooks() {
 
-		$theme_utils = new Class_Names_Utilities( $this->get_theme_name(), $this->get_version() );
+		$theme_utils = new TCCi_Utilities( $this->get_theme_name(), $this->get_version() );
 
 		$this->loader->action( 'after_setup_theme', 				$theme_utils, 'setup' );
 		$this->loader->action( 'after_setup_theme', 				$theme_utils, 'content_width', 0 );
@@ -295,7 +295,7 @@ class Class_Names_Controller {
 	 *
 	 * @since     1.0.0
 	 *
-	 * @return    Class_Names_Loader    Orchestrates the hooks of the theme.
+	 * @return    TCCi_Loader    Orchestrates the hooks of the theme.
 	 */
 	public function get_loader() {
 

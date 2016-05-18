@@ -7,7 +7,7 @@
  *
  * @package 	TCCi
  */
-class Class_Names_Metaboxes {
+class TCCi_Metaboxes {
 
 	/**
 	 * The post meta data
@@ -208,7 +208,7 @@ class Class_Names_Metaboxes {
 		foreach ( $metas as $meta ) {
 
 			$value 		= ( empty( $this->meta[$meta[0]][0] ) ? '' : $this->meta[$meta[0]][0] );
-			$sanitizer 	= new Class_Names_Sanitize();
+			$sanitizer 	= new TCCi_Sanitize();
 			$new_value 	= $sanitizer->clean( $_POST[$meta[0]], $meta[1] );
 
 			update_post_meta( $post_id, $meta[0], $new_value );

@@ -6,7 +6,7 @@
  *
  * @package  	TCCi
  */
-class Class_Names_Automattic {
+class TCCi_Automattic {
 
 	/**
 	 * Constructor

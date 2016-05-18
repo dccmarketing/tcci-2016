@@ -8,7 +8,7 @@
  * @since 		1.0.0
  * @package  	TCCi
  */
-class Class_Names_Customizer {
+class TCCi_Customizer {
 
 	/**
 	 * Constructor

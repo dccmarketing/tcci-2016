@@ -6,7 +6,7 @@
  * @package TCCi
  * @author Slushman <chris@slushman.com>
  */
-class Class_Names_Menukit {
+class TCCi_Menukit {
 
 	/**
 	 * Constructor

@@ -41,4 +41,4 @@ require get_template_directory() . '/inc/class-controller.php';
  *
  * @since    1.0.0
  */
-call_user_func( array( new Class_Names_Controller(), 'run' ) );
+call_user_func( array( new TCCi_Controller(), 'run' ) );

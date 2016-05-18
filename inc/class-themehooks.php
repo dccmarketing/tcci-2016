@@ -6,7 +6,7 @@
  * @package TCCi
  * @author Slushman <chris@slushman.com>
  */
-class Class_Names_Themehooks {
+class TCCi_Themehooks {
 
 	/**
 	 * Constructor
@@ -274,7 +274,7 @@ class Class_Names_Themehooks {
 
 				$menu_args['menu_id'] 			= 'primary-menu';
 				$menu_args['theme_location'] 	= 'primary';
-				$menu_args['walker']  			= new Class_Names_Walker();
+				$menu_args['walker']  			= new TCCi_Walker();
 
 				wp_nav_menu( $menu_args );
 

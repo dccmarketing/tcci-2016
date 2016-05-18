@@ -6,7 +6,7 @@
  * @package TCCi
  * @author Slushman <chris@slushman.com>
  */
-class Class_Names_Utilities {
+class TCCi_Utilities {
 
 	/**
 	 * Constructor

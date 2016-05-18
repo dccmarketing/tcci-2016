@@ -7,7 +7,7 @@
  *
  * @package 	TCCi
  */
-class Class_Names_Loader {
+class TCCi_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

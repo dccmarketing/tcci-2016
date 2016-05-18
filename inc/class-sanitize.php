@@ -8,7 +8,7 @@
  * @package 	TCCi
  */
 
-class Class_Names_Sanitize {
+class TCCi_Sanitize {
 
 	/**
 	 * Constructor
