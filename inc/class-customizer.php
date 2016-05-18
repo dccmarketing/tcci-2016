@@ -1,6 +1,6 @@
 <?php
 /**
- * Replace with Theme Name Customizer
+ * TCCi 2016 Customizer
  *
  * Contains methods for customizing the theme customization screen.
  *
@@ -30,7 +30,7 @@ class Class_Names_Customizer {
 		$wp_customize->add_panel( 'theme_options',
 			array(
 				'capability'  		=> 'edit_theme_options',
-				'description'  		=> esc_html__( 'Options for Replace with Theme Name', 'tcci' ),
+				'description'  		=> esc_html__( 'Options for TCCi 2016', 'tcci' ),
 				'priority'  		=> 10,
 				'theme_supports'  	=> '',
 				'title'  			=> esc_html__( 'Theme Options', 'tcci' ),
@@ -42,7 +42,7 @@ class Class_Names_Customizer {
 		$wp_customize->add_panel( 'theme_options',
 			array(
 				'capability'  		=> 'edit_theme_options',
-				'description'  		=> esc_html__( 'Options for Replace with Theme Name', 'tcci' ),
+				'description'  		=> esc_html__( 'Options for TCCi 2016', 'tcci' ),
 				'priority'  		=> 10,
 				'theme_supports'  	=> '',
 				'title'  			=> esc_html__( 'Theme Options', 'tcci' ),
