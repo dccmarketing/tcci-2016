@@ -14,16 +14,16 @@ get_header();
 			<section class="error-404 not-found"><?php
 
 				/**
-				 * The function_names_404_content action hook
+				 * The tcci_404_content action hook
 				 *
 				 * @hooked 		title_404 		10
 				 */
-				do_action( 'function_names_404_before' );
+				do_action( 'tcci_404_before' );
 
 				?><div class="page-content"><?php
 
 					/**
-					 * The function_names_404_content action hook
+					 * The tcci_404_content action hook
 					 *
 					 * @hooked 		add_search 					10
 					 * @hooked 		four_04_posts_widget 		15
@@ -31,14 +31,14 @@ get_header();
 					 * @hooked 		four_04_archives 			25
 					 * @hooked 		four_04_tag_cloud 			30
 					 */
-					do_action( 'function_names_404_content' );
+					do_action( 'tcci_404_content' );
 
 				?></div><!-- .page-content --><?php
 
 				/**
-				 * The function_names_404_after action hook
+				 * The tcci_404_after action hook
 				 */
-				do_action( 'function_names_404_after' );
+				do_action( 'tcci_404_after' );
 
 			?></section><!-- .error-404 -->
 		</main><!-- #main -->

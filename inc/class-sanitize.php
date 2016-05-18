@@ -50,7 +50,7 @@ class Class_Names_Sanitize {
 		/**
 		 * Add additional santization before the default sanitization
 		 */
-		do_action( 'function_names_pre_sanitize', $sanitized );
+		do_action( 'tcci_pre_sanitize', $sanitized );
 
 		switch ( $type ) {
 
@@ -83,7 +83,7 @@ class Class_Names_Sanitize {
 		/**
 		 * Add additional santization after the default .
 		 */
-		do_action( 'function_names_post_sanitize', $sanitized );
+		do_action( 'tcci_post_sanitize', $sanitized );
 
 		return $sanitized;
 

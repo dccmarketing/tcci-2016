@@ -10,54 +10,54 @@
  */
 
 			/**
-			 * The function_names_content_bottom action hook
+			 * The tcci_content_bottom action hook
 			 */
-			do_action( 'function_names_content_bottom' );
+			do_action( 'tcci_content_bottom' );
 
 		?></div><!-- #content --><?php
 
 		/**
-		 * The function_names_content_after action hook
+		 * The tcci_content_after action hook
 		 */
-		do_action( 'function_names_content_after' );
+		do_action( 'tcci_content_after' );
 
 		/**
-		 * The function_names_footer_before action hook
+		 * The tcci_footer_before action hook
 		 */
-		do_action( 'function_names_footer_before' );
+		do_action( 'tcci_footer_before' );
 
 		?><footer id="colophon" role="contentinfo"><?php
 
 			/**
-			 * The function_names_footer_top action hook
+			 * The tcci_footer_top action hook
 			 */
-			do_action( 'function_names_footer_top' );
+			do_action( 'tcci_footer_top' );
 
 			/**
-			 * The function_names_footer_content action hook
+			 * The tcci_footer_content action hook
 			 *
 			 * @hooked 		footer_content
 			 */
-			do_action( 'function_names_footer_content' );
+			do_action( 'tcci_footer_content' );
 
 			/**
-			 * The function_names_footer_bottom action hook
+			 * The tcci_footer_bottom action hook
 			 */
-			do_action( 'function_names_footer_bottom' );\
+			do_action( 'tcci_footer_bottom' );\
 
 		?></footer><!-- #colophon --><?php
 
 	/**
-	 * The function_names_footer_after action hook
+	 * The tcci_footer_after action hook
 	 */
-	do_action( 'function_names_footer_after' );
+	do_action( 'tcci_footer_after' );
 
 	wp_footer();
 
 	/**
-	 * The function_names_body_bottom action hook
+	 * The tcci_body_bottom action hook
 	 */
-	do_action( 'function_names_body_bottom' );
+	do_action( 'tcci_body_bottom' );
 
 	?></body>
 </html>

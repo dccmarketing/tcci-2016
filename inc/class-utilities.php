@@ -172,7 +172,7 @@ class Class_Names_Utilities {
 	public function background_images() {
 
 		$output = '';
-		$image 	= function_names_get_thumbnail_url( get_the_ID(), 'full' );
+		$image 	= tcci_get_thumbnail_url( get_the_ID(), 'full' );
 
 		if ( ! $image ) {
 
@@ -195,14 +195,14 @@ class Class_Names_Utilities {
 	} // background_images()
 
 	/**
-	 * Flush out the transients used in function_names_categorized_blog.
+	 * Flush out the transients used in tcci_categorized_blog.
 	 */
 	public function category_transient_flusher() {
 
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) { return; }
 
 		// Like, beat it. Dig?
-		delete_transient( 'function_names_categories' );
+		delete_transient( 'tcci_categories' );
 
 	} // category_transient_flusher()
 
@@ -215,7 +215,7 @@ class Class_Names_Utilities {
 	 */
 	public function content_width() {
 
-		$GLOBALS['content_width'] = apply_filters( 'function_names_content_width', 640 );
+		$GLOBALS['content_width'] = apply_filters( 'tcci_content_width', 640 );
 
 	} // content_width()
 

@@ -16,7 +16,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds a hidden search field
 	 *
-	 * @hooked 		function_names_body_top 		15
+	 * @hooked 		tcci_body_top 		15
 	 *
 	 * @return 		mixed 				The HTML markup for a search field
 	 */
@@ -35,7 +35,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds a search form
 	 *
-	 * @hooked 		function_names_404_content 		15
+	 * @hooked 		tcci_404_content 		15
 	 *
 	 * @return 		mixed 		Search form markup
 	 */
@@ -48,7 +48,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Inserts Google Tag manager code after body tag
 	 *
-	 * @hooked 		function_names_body_top 		10
+	 * @hooked 		tcci_body_top 		10
 	 *
 	 * @return 		mixed 				The inserted Google Tag Manager code
 	 */
@@ -69,7 +69,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Returns the appropriate breadcrumbs.
 	 *
-	 * @hooked		function_names_wrap_content
+	 * @hooked		tcci_wrap_content
 	 *
 	 * @return 		mixed 				WooCommerce breadcrumbs, then Yoast breadcrumbs
 	 */
@@ -107,7 +107,7 @@ class Class_Names_Themehooks {
 	 *
 	 * If comments are open or we have at least one comment, load up the comment template.
 	 *
-	 * @hooked 		function_names_entry_after 		10
+	 * @hooked 		tcci_entry_after 		10
 	 *
 	 * @return 		mixed 					The comments markup
 	 */
@@ -122,7 +122,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds the copyright and credits to the footer content.
 	 *
-	 * @hooked 		function_names_footer_content
+	 * @hooked 		tcci_footer_content
 	 *
 	 * @return 		mixed 									The footer markup
 	 */
@@ -160,7 +160,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds the  to the 404 page content.
 	 *
-	 * @hooked 		function_names_404_content		25
+	 * @hooked 		tcci_404_content		25
 	 *
 	 * @return 		mixed 							Markup for the archives
 	 */
@@ -178,14 +178,14 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds the  to the 404 page content.
 	 *
-	 * @hooked 		function_names_404_content		20
+	 * @hooked 		tcci_404_content		20
 	 *
 	 * @return 		mixed 							The categories widget
 	 */
 	public function four_04_categories() {
 
 		if ( ! is_404() ) { return; }
-		if ( ! function_names_categorized_blog() ) { return; }
+		if ( ! tcci_categorized_blog() ) { return; }
 
 		?><div class="widget widget_categories">
 			<h2 class="widget-title"><?php esc_html_e( 'Most Used Categories', 'tcci' ); ?></h2>
@@ -207,7 +207,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds the Recent Posts widget to the 404 page.
 	 *
-	 * @hooked 		function_names_404_content 		15
+	 * @hooked 		tcci_404_content 		15
 	 *
 	 * @return 		mixed 							The Recent Posts widget
 	 */
@@ -222,7 +222,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds the  to the 404 page content.
 	 *
-	 * @hooked 		function_names_404_content		30
+	 * @hooked 		tcci_404_content		30
 	 *
 	 * @return 		mixed 							The tag cloud widget
 	 */
@@ -237,7 +237,7 @@ class Class_Names_Themehooks {
 	/**
 	 * The header wrap markup
 	 *
-	 * @hooked  	function_names_header_bottom 		90
+	 * @hooked  	tcci_header_bottom 		90
 	 *
 	 * @return 		mixed 					The header wrap markup
 	 */
@@ -250,7 +250,7 @@ class Class_Names_Themehooks {
 	/**
 	 * The header wrap markup
 	 *
-	 * @hooked 		function_names_header_top 		10
+	 * @hooked 		tcci_header_top 		10
 	 *
 	 * @return 		mixed 				The header wrap markup
 	 */
@@ -263,7 +263,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds the primary menu
 	 *
-	 * @hooked 		function_names_header_bottom 		95
+	 * @hooked 		tcci_header_bottom 		95
 	 *
 	 * @return 		mixed 					The primary menu markup
 	 */
@@ -285,7 +285,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds the primary menu
 	 *
-	 * @hooked 		function_names_header_bottom 		65
+	 * @hooked 		tcci_header_bottom 		65
 	 *
 	 * @return 		mixed 					The social links menu markup
 	 */
@@ -320,7 +320,7 @@ class Class_Names_Themehooks {
 
 		?><div class="entry-meta"><?php
 
-			function_names_posted_on();
+			tcci_posted_on();
 
 		?></div><!-- .entry-meta --><?php
 
@@ -329,7 +329,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds the post navigation to the archive pages
 	 *
-	 * @hooked 		function_names_while_after
+	 * @hooked 		tcci_while_after
 	 *
 	 * @return 		mixed 							The posts navigation
 	 */
@@ -347,7 +347,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds the starting site branding markup
 	 *
-	 * @hooked 		function_names_header_bottom			85
+	 * @hooked 		tcci_header_bottom			85
 	 *
 	 * @return 		mixed 						HTML markup
 	 */
@@ -360,7 +360,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds the starting site branding markup
 	 *
-	 * @hooked 		function_names_header_top				15
+	 * @hooked 		tcci_header_top				15
 	 *
 	 * @return 		mixed 						HTML markup
 	 */
@@ -373,7 +373,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds the site description markup
 	 *
-	 * @hooked 		function_names_header_content 		15
+	 * @hooked 		tcci_header_content 		15
 	 *
 	 * @return 		mixed 								The site description markup
 	 */
@@ -392,7 +392,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds the a11y skip link markup
 	 *
-	 * @hooked 		function_names_body_top 		20
+	 * @hooked 		tcci_body_top 		20
 	 *
 	 * @return 		mixed 				Skip link markup
 	 */
@@ -405,7 +405,7 @@ class Class_Names_Themehooks {
 	/**
 	 * The 404 page title markup
 	 *
-	 * @hooked 		function_names_404_content 		10
+	 * @hooked 		tcci_404_content 		10
 	 *
 	 * @return 		mixed 							The 440 page title
 	 */
@@ -423,7 +423,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds the page title to an archive page
 	 *
-	 * @hooked 		function_names_while_before
+	 * @hooked 		tcci_while_before
 	 *
 	 * @return 		mixed 							The archive page title
 	 */
@@ -482,7 +482,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Returns the page title
 	 *
-	 * @hooked 		function_names_while_before 		10
+	 * @hooked 		tcci_while_before 		10
 	 *
 	 * @return 		mixed 							The entry title
 	 */
@@ -498,7 +498,7 @@ class Class_Names_Themehooks {
 	/**
 	 * The search title markup
 	 *
-	 * @hooked 		function_names_while_before
+	 * @hooked 		tcci_while_before
 	 *
 	 * @return 		mixed 							Search title markup
 	 */
@@ -519,7 +519,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds the single post title to the index
 	 *
-	 * @hooked 		function_names_while_before
+	 * @hooked 		tcci_while_before
 	 *
 	 * @return 		mixed 							The single post title
 	 */
@@ -536,7 +536,7 @@ class Class_Names_Themehooks {
 	/**
 	 * Adds the site title markup
 	 *
-	 * @hooked 		function_names_header_content 		10
+	 * @hooked 		tcci_header_content 		10
 	 *
 	 * @return 		mixed 								The site title markup
 	 */

@@ -57,7 +57,7 @@ class Class_Names_Automattic {
 /**
  * Custom render function for Infinite Scroll.
  */
-function function_names_infinite_scroll_render() {
+function tcci_infinite_scroll_render() {
 
 	while ( have_posts() ) {
 
@@ -75,4 +75,4 @@ function function_names_infinite_scroll_render() {
 
 	}
 
-} // function_names_infinite_scroll_render()
+} // tcci_infinite_scroll_render()

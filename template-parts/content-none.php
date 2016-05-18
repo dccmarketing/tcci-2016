@@ -9,7 +9,7 @@
 
 ?><section class="no-results not-found"><?php
 
-	do_action( 'function_names_entry_top' );
+	do_action( 'tcci_entry_top' );
 
 	?><header class="page-header contentnone"><?php
 
@@ -20,7 +20,7 @@
 
 	?></header><!-- .page-header --><?php
 
-	do_action( 'function_names_entry_content_before' );
+	do_action( 'tcci_entry_content_before' );
 
 	?><div class="page-content"><?php
 
@@ -56,8 +56,8 @@
 
 	?></div><!-- .page-content --><?php
 
-	do_action( 'function_names_entry_content_after' );
+	do_action( 'tcci_entry_content_after' );
 
-	do_action( 'function_names_entry_bottom' );
+	do_action( 'tcci_entry_bottom' );
 
 ?></section><!-- .no-results -->

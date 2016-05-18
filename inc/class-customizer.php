@@ -816,7 +816,7 @@ class Class_Names_Customizer {
 	 */
 	public function live_preview() {
 
-		wp_enqueue_script( 'function_names_customizer', get_template_directory_uri() . '/js/customizer.min.js', array( 'jquery', 'customize-preview' ), '', true );
+		wp_enqueue_script( 'tcci_customizer', get_template_directory_uri() . '/js/customizer.min.js', array( 'jquery', 'customize-preview' ), '', true );
 
 	} // live_preview()
 
@@ -831,7 +831,7 @@ class Class_Names_Customizer {
 	 */
 	public function control_scripts() {
 
-		wp_enqueue_script( 'function_names_customizer_controls', get_template_directory_uri() . '/js/customizer-controls.min.js', array( 'jquery', 'customize-controls' ), false, true );
+		wp_enqueue_script( 'tcci_customizer_controls', get_template_directory_uri() . '/js/customizer-controls.min.js', array( 'jquery', 'customize-controls' ), false, true );
 
 	} // control_scripts()
 
