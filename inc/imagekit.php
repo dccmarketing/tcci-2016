@@ -3,7 +3,7 @@
 /**
  * A class of methods related to images.
  *
- * @package DocBlock
+ * @package TCCi
  * @author Slushman <chris@slushman.com>
  */
 

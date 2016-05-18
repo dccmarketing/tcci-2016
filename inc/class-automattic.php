@@ -4,7 +4,7 @@
  *
  * @link https://jetpack.com/
  *
- * @package  	DocBlock
+ * @package  	TCCi
  */
 class Class_Names_Automattic {
 

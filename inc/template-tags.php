@@ -4,7 +4,7 @@
  *
  * Eventually, some of the functionality here could be replaced by core features.
  *
- * @package DocBlock
+ * @package TCCi
  */
 
 if ( ! function_exists( 'tcci_posted_on' ) ) :

@@ -6,7 +6,7 @@
  *
  * @link 		https://codex.wordpress.org/Theme_Customization_API
  * @since 		1.0.0
- * @package  	DocBlock
+ * @package  	TCCi
  */
 class Class_Names_Customizer {
 

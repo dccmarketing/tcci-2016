@@ -4,7 +4,7 @@
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
- * @package DocBlock
+ * @package TCCi
  */
 
 ?><section class="no-results not-found"><?php

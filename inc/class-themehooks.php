@@ -3,7 +3,7 @@
 /**
  * A class of methods using hooks in the theme.
  *
- * @package DocBlock
+ * @package TCCi
  * @author Slushman <chris@slushman.com>
  */
 class Class_Names_Themehooks {

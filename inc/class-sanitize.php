@@ -5,7 +5,7 @@
  *
  * @since 		1.0.0
  *
- * @package 	DocBlock
+ * @package 	TCCi
  */
 
 class Class_Names_Sanitize {
