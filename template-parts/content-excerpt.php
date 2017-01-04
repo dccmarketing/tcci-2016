@@ -25,17 +25,11 @@
 
 	?><div class="entry-content"><?php
 
-			the_excerpt();
+		the_excerpt();
 
 	?></div><!-- .entry-content --><?php
 
 	do_action( 'tcci_entry_content_after' );
-
-	?><footer class="entry-footer"><?php
-
-		tcci_entry_footer();
-
-	?></footer><!-- .entry-footer --><?php
 
 	do_action( 'tcci_entry_bottom' );
 

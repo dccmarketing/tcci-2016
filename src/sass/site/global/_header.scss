@@ -1,0 +1,68 @@
+[role="banner"]{
+	// DO NOT ADD PADDING HERE! - it screws up menus
+	border-bottom 	: 5px solid $color__light;
+	overflow 		: auto;
+
+	@media only screen and (min-width: $bp__sidemenu + 1) {
+		overflow 	: visible;
+	}
+}
+
+.wrap-header {
+	align-items 	: flex-start;
+	display 		: flex;
+	flex-wrap 		: wrap;
+	justify-content : center;
+	position 		: relative;
+
+	@include clearafter();
+
+	@media only screen and (min-width: $bp__headings1) {
+		display: block;
+	}
+}
+
+.site-branding {
+	transform 	: $skew__tcci;
+
+	@media only screen and (max-width: $bp__sidemenu) {
+		margin: 0 auto;
+	}
+
+	@media only screen and (min-width: $bp__headings1) {
+		float 			: left;
+		padding-left 	: get( $sizes, 'tiltcomp' );
+	}
+
+}
+
+.site-title {
+	margin 		: 0;
+	text-align 	: center;
+
+	a {
+		color 			: get( $text, 'sitetitle' );
+		text-decoration : none;
+	}
+}
+
+.custom-logo-link {
+	background-color: $color__light;
+	display 		: block;
+	margin 			: 0 auto;
+	max-width 		: get( $sizes, 'logo' );
+	padding 		: 0 1em;
+
+	@media only screen and (min-width: $bp__headings1) {
+		padding-bottom 	: 1em;
+		padding-top 	: 1em;
+	}
+}
+
+.custom-logo {
+	transform: $unskew__tcci;
+}
+
+.site-description {
+	text-align: center;
+}

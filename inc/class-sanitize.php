@@ -8,7 +8,7 @@
  * @package 	TCCi
  */
 
-class TCCi_Sanitize {
+class TCCI_Sanitize {
 
 	/**
 	 * Constructor
@@ -72,6 +72,7 @@ class TCCi_Sanitize {
 
 			case 'checkbox'			: $sanitized = ( isset( $data ) ? 1 : 0 ); break;
 			case 'color' 			: $sanitized = $this->sanitize_hex_color( $data ); break;
+			case 'editor' 			: $sanitized = wp_kses_post( $data ); break;
 			case 'email'			: $sanitized = sanitize_email( $data ); break;
 			case 'file'				: $sanitized = sanitize_file_name( $data ); break;
 			case 'tel'				: $sanitized = $this->sanitize_phone( $data ); break;

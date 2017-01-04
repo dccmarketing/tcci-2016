@@ -6,7 +6,7 @@
  * @package TCCi
  * @author Slushman <chris@slushman.com>
  */
-class TCCi_Menukit {
+class TCCI_Menukit {
 
 	/**
 	 * Constructor
@@ -14,367 +14,104 @@ class TCCi_Menukit {
 	public function __construct() {} // __construct()
 
 	/**
-	 * Adds an Dashicon icon before the menu item text
-	 *
-	 * @link 	http://www.billerickson.net/customizing-wordpress-menus/
-	 *
-	 * @param 	string 		$item_output		//
-	 * @param 	object 		$item				//
-	 * @param 	int 		$depth 				//
-	 * @param 	array 		$args 				//
-	 *
-	 * @return 	string 							modified menu
+	 * Registers all the WordPress hooks and filters for this class.
 	 */
-	public function dashicon_before_menu_item( $item_output, $item, $depth, $args ) {
+	public function hooks() {
 
-		if ( '' !== $args->theme_location ) { return $item_output; }
+		add_filter( 'walker_nav_menu_start_el', array( $this, 'menu_show_hide' ), 10, 4 );
+		add_filter( 'walker_nav_menu_start_el', array( $this, 'add_icons_to_menu' ), 10, 4 );
+		add_filter( 'wp_nav_menu_items', 		array( $this, 'add_search_to_menu' ), 10, 2 );
 
-		$atts 	= $this->get_attributes( $item );
-		$class 	= $item->classes[0];
-
-		if ( empty( $class ) ) { return $item_output; }
-
-		$output = '';
-
-		$output .= '<a href="' . $item->url . '" class="icon-menu" ' . $atts . '>';
-		$output .= '<span class="dashicons dashicons-' . $class . '"></span>';
-		$output .= '<span class="menu-label">';
-		$output .= $item->title;
-		$output .= '</span>';
-		$output .= '</a>';
-
-		return $output;
-
-	} // dashicon_before_menu_item()
+	} // hooks()
 
 	/**
-	 * Adds a Dashicon after the menu item text
+	 * Add an icon the menu item
 	 *
-	 * @link 	http://www.billerickson.net/customizing-wordpress-menus/
-	 *
-	 * @param 	string 		$item_output		//
-	 * @param 	object 		$item				//
-	 * @param 	int 		$depth 				//
-	 * @param 	array 		$args 				//
-	 *
-	 * @return 	string 							modified menu
-	 */
-	public function dashicon_after_menu_item( $item_output, $item, $depth, $args ) {
-
-		if ( '' !== $args->theme_location || '' !== $args->theme_location ) { return $item_output; }
-
-		$atts 	= $this->get_attributes( $item );
-		$class 	= $item->classes[0];
-
-		if ( empty( $class ) ) { return $item_output; }
-
-		$output = '';
-
-		$output .= '<a href="' . $item->url . '" class="icon-menu" ' . $atts . '>';
-		$output .= '<span class="menu-label">';
-		$output .= $item->title;
-		$output .= '</span>';
-		$output .= '<span class="dashicons dashicons-' . $class . '"></span>';
-		$output .= '</a>';
-
-		return $output;
-
-	} // dashicon_after_menu_item()
-
-	/**
-	 * Replaces menu item text with an Dashicon
-	 *
-	 * @link 	http://www.billerickson.net/customizing-wordpress-menus/
-	 *
-	 * @param 	string 		$item_output		//
-	 * @param 	object 		$item				//
-	 * @param 	int 		$depth 				//
-	 * @param 	array 		$args 				//
-	 *
-	 * @return 	string 							modified menu
-	 */
-	public function dashicon_only_menu_item( $item_output, $item, $depth, $args ) {
-
-		if ( '' !== $args->theme_location ) { return $item_output; }
-
-		$atts 	= $this->get_attributes( $item );
-		$class 	= $item->classes[0];
-
-		if ( empty( $class ) ) { return $item_output; }
-
-		$output = '';
-
-		$output .= '<a href="' . $item->url . '" class="icon-menu" ' . $atts . '>';
-		$output .= '<span class="screen-reader-text">' . $item->title . '</span>';
-		$output .= '<span class="dashicons dashicons-' . $class . '"></span>';
-		$output .= '</a>';
-
-		return $output;
-
-	} // dashicon_only_menu_item()
-
-	/**
-	 * Adds an FontAwesome icon before the menu item text
-	 *
-	 * @link 	http://www.billerickson.net/customizing-wordpress-menus/
-	 *
-	 * @param 	string 		$item_output		//
-	 * @param 	object 		$item				//
-	 * @param 	int 		$depth 				//
-	 * @param 	array 		$args 				//
-	 *
-	 * @return 	string 							modified menu
-	 */
-	public function fa_before_menu_item( $item_output, $item, $depth, $args ) {
-
-		if ( '' !== $args->theme_location ) { return $item_output; }
-
-		$atts 	= $this->get_attributes( $item );
-		$class 	= $item->classes[0];
-
-		if ( empty( $class ) ) { return $item_output; }
-
-		$output = '';
-
-		$output .= '<a href="' . $item->url . '" class="icon-menu" ' . $atts . '>';
-		$output .= '<span class="fa fa-' . $class . '"></span>';
-		$output .= '<span class="menu-label">';
-		$output .= $item->title;
-		$output .= '</span>';
-		$output .= '</a>';
-
-		return $output;
-
-	} // fa_before_menu_item()
-
-	/**
-	 * Adds a FontAwesome icon after the menu item text
-	 *
-	 * @link 	http://www.billerickson.net/customizing-wordpress-menus/
-	 *
-	 * @param 	string 		$item_output		//
-	 * @param 	object 		$item				//
-	 * @param 	int 		$depth 				//
-	 * @param 	array 		$args 				//
-	 *
-	 * @return 	string 							modified menu
-	 */
-	public function fa_after_menu_item( $item_output, $item, $depth, $args ) {
-
-		if ( '' !== $args->theme_location || '' !== $args->theme_location ) { return $item_output; }
-
-		$atts 	= $this->get_attributes( $item );
-		$class 	= $item->classes[0];
-
-		if ( empty( $class ) ) { return $item_output; }
-
-		$output = '';
-
-		$output .= '<a href="' . $item->url . '" class="icon-menu" ' . $atts . '>';
-		$output .= '<span class="menu-label">';
-		$output .= $item->title;
-		$output .= '</span>';
-		$output .= '<span class="fa fa-' . $class . '"></span>';
-		$output .= '</a>';
-
-		return $output;
-
-	} // fa_after_menu_item()
-
-	/**
-	 * Replaces menu item text with a FontAwesome icon
-	 *
-	 * @link 	http://www.billerickson.net/customizing-wordpress-menus/
-	 *
-	 * @param 	string 		$item_output		//
-	 * @param 	object 		$item				//
-	 * @param 	int 		$depth 				//
-	 * @param 	array 		$args 				//
-	 *
-	 * @return 	string 							modified menu
-	 */
-	public function fa_only_menu_item( $item_output, $item, $depth, $args ) {
-
-		if ( '' !== $args->theme_location ) { return $item_output; }
-
-		$atts 	= $this->get_attributes( $item );
-		$class 	= $item->classes[0];
-
-		if ( empty( $class ) ) { return $item_output; }
-
-		$output = '';
-
-		$output .= '<a href="' . $item->url . '" class="icon-menu" ' . $atts . '>';
-		$output .= '<span class="screen-reader-text">' . $item->title . '</span>';
-		$output .= '<span class="fa fa-' . $class . '"></span>';
-		$output .= '</a>';
-
-		return $output;
-
-	} // fa_only_menu_item()
-
-	/**
-	 * Add Down Caret to Menus with Children
-	 *
+	 * @exits 		If $args is empty.
+	 * @exits 		If 'slushicons' is not in the classes array.
+	 * @hooked 		walker_nav_menu_start_el 		10
+	 * @link 		http://www.billerickson.net/customizing-wordpress-menus/
 	 * @param 		string 		$item_output		//
 	 * @param 		object 		$item				//
 	 * @param 		int 		$depth 				//
 	 * @param 		array 		$args 				//
-	 *
 	 * @return 		string 							modified menu
 	 */
-	public function menu_caret( $item_output, $item, $depth, $args ) {
+	public function add_icons_to_menu( $item_output, $item, $depth, $args ) {
 
-		if ( ! in_array( 'menu-item-has-children', $item->classes ) ) { return $item_output; }
+		if ( empty( $args ) ) { return $item_output; }
+		if ( ! in_array( 'slushicons', $item->classes ) ) { return $item_output; }
 
-		$atts 	= $this->get_attributes( $item );
-		$output = '';
+		$atts 		= $this->get_attributes( $item );
+		$icon 		= $this->get_icon_info( $item->classes );
+		$textpos 	= $this->get_text_pos( $item->classes );
 
-		$output .= '<a href="' . $item->url . '">';
-		$output .= $item->title;
-		$output .= '<span class="children">' . tcci_get_svg( 'caret-down' ) . '</span>';
-		$output .= '</a>';
-
-		return $output;
-
-	} // menu_caret()
-
-	/**
-	 * Add Plus ("+") expander to menus with children
-	 *
-	 * @param 		string 		$item_output		//
-	 * @param 		object 		$item				//
-	 * @param 		int 		$depth 				//
-	 * @param 		array 		$args 				//
-	 *
-	 * @return 		string 							modified menu
-	 */
-	public function menu_show_hide( $item_output, $item, $depth, $args ) {
-
-		showme( $args );
-
-		if ( empty( $args ) || is_array( $args ) ) { return $item_output; }
-		if ( 'primary' !== $args->theme_location ) { return $item_output; }
-		if ( ! in_array( 'menu-item-has-children', $item->classes ) ) { return $item_output; }
-
-		$atts 	= $this->get_attributes( $item );
-		$output = '';
-
-		$output .= '<a href="' . $item->url . '">';
-		$output .= $item->title;
-		$output .= '<span class="children"></span>';
-		$output .= '</a>';
-		$output .= '<span class="show-hide flex-center">+</span>';
-
-		return $output;
-
-	} // menu_show_hide()
-
-	/**
-	 * Adds an SVG icon before the menu item text
-	 *
-	 * @link 	http://www.billerickson.net/customizing-wordpress-menus/
-	 *
-	 * @param 	string 		$item_output		//
-	 * @param 	object 		$item				//
-	 * @param 	int 		$depth 				//
-	 * @param 	array 		$args 				//
-	 *
-	 * @return 	string 							modified menu
-	 */
-	public function svg_before_menu_item( $item_output, $item, $depth, $args ) {
-
-		if ( '' !== $args->theme_location ) { return $item_output; }
-
-		$atts 	= $this->get_attributes( $item );
-		$class 	= $this->get_svg_by_class( $item->classes );
-
-		if ( empty( $class ) ) { return $item_output; }
+		if ( empty( $icon ) && empty( $textpos ) ) { return $item_output; }
 
 		$output = '';
-
 		$output .= '<a href="' . $item->url . '" class="icon-menu" ' . $atts . '>';
-		$output .= $class;
-		$output .= '<span class="menu-label">';
-		$output .= $item->title;
-		$output .= '</span>';
+
+		if ( 'right' === $textpos ) {
+
+			$output .= $this->get_icon( $icon );
+
+		}
+
+		if ( 'hide' === $textpos ) {
+
+			$output .= '<span class="screen-reader-text">' . $item->title . '</span>';
+			$output .= $this->get_icon( $icon );
+
+		} else {
+
+			$output .= '<span class="menu-label">' . $item->title . '</span>';
+
+		}
+
+		if ( 'left' === $textpos ) {
+
+			$output .= $this->get_icon( $icon );
+
+		}
+
 		$output .= '</a>';
 
 		return $output;
 
-	} // svg_before_menu_item()
+	} // add_icons_to_menu()
 
 	/**
-	 * Adds an SVG icon after the menu item text
+	 * Adds a search form to the menu.
 	 *
-	 * @link 	http://www.billerickson.net/customizing-wordpress-menus/
-	 *
-	 * @param 	string 		$item_output		//
-	 * @param 	object 		$item				//
-	 * @param 	int 		$depth 				//
-	 * @param 	array 		$args 				//
-	 *
-	 * @return 	string 							modified menu
+	 * @exits 		If not on the correct menu.
+	 * @hooked 		wp_nav_menu_items 			10
+	 * @param 		array 		$items 			The current menu items.
+	 * @param 		array 		$args 			The menu args.
+	 * @return 		array 						The menu items plus a search form.
 	 */
-	public function svg_after_menu_item( $item_output, $item, $depth, $args ) {
+	public function add_search_to_menu( $items, $args ) {
 
-		if ( '' !== $args->theme_location ) { return $item_output; }
+		if ( 'social' !== $args->theme_location ) { return $items; }
 
-		$atts 	= $this->get_attributes( $item );
-		$class 	= $this->get_svg_by_class( $item->classes );
+		$search = '';
+		$search .= '<li class="menu-item search">';
+		$search .= '<span class="btn-search">';
+		$search .= tcci_get_svg( 'search' );
+		$search .= '</span>';
+		$search .= get_search_form( false );
+		$search .= '</li>';
 
-		if ( empty( $class ) ) { return $item_output; }
 
-		$output = '';
+		return $items . $search;
 
-		$output .= '<a href="' . $item->url . '" class="icon-menu" ' . $atts . '>';
-		$output .= '<span class="menu-label">';
-		$output .= $item->title;
-		$output .= '</span>';
-		$output .= $class;
-		$output .= '</a>';
-
-		return $output;
-
-	} // svg_after_menu_item()
-
-	/**
-	 * Replaces menu item text with an SVG icon
-	 *
-	 * @link 	http://www.billerickson.net/customizing-wordpress-menus/
-	 *
-	 * @param 	string 		$item_output		//
-	 * @param 	object 		$item				//
-	 * @param 	int 		$depth 				//
-	 * @param 	array 		$args 				//
-	 *
-	 * @return 	string 							modified menu
-	 */
-	public function svg_only_menu_item( $item_output, $item, $depth, $args ) {
-
-		if ( 'social' !== $args->theme_location ) { return $item_output; }
-
-		$atts 	= $this->get_attributes( $item );
-		$class 	= $this->get_svg_by_class( $item->classes );
-
-		if ( empty( $class ) ) { return $item_output; }
-
-		$output = '';
-
-		$output .= '<a aria-label="' . $item->title . '" href="' . $item->url . '" class="icon-menu" ' . $atts . '>';
-		$output .= '<span class="screen-reader-text">' . $item->title . '</span>';
-		$output .= $class;
-		$output .= '</a>';
-
-		return $output;
-
-	} // svg_only_menu_item()
+	} // add_search_to_menu()
 
 	/**
 	 * Returns a string of HTML attributes for the menu item
 	 *
-	 * @param 	object 		$item 			The menu item object
-	 * @return 	string 						A string of attributes
+	 * @exits 		If $item is empty.
+	 * @param 		object 		$item 			The menu item object
+	 * @return 		string 						A string of attributes
 	 */
 	public function get_attributes( $item ) {
 
@@ -404,55 +141,143 @@ class TCCi_Menukit {
 	} // get_attributes()
 
 	/**
-	 * Gets the appropriate SVG based on a menu item class
+	 * Returns the code for the icon.
 	 *
-	 * @param 		array 		$classes 					Array of classes to check
-	 * @param 		string 		$link 						Optional to add to the SVG
-	 * @return 		mixed 									SVG icon
+	 * @exits 		If $icon is empty
+	 * @exits 		if $icon is not an array.
+	 * @param 		array 		$icon 			The icon info array.
+	 * @return 		mixed 						The icon markup.
 	 */
-	public function get_svg_by_class( $classes ) {
+	private function get_icon( $icon ) {
 
-		$output = '';
+		if ( empty( $icon ) || ! is_array( $icon ) ) { return; }
+
+		$return = '';
+
+		if ( 'dashicons' === $icon['type'] ) {
+
+			$return = '<span class="dashicons dashicons-' . $icon['name'] . '"></span>';
+
+		}
+
+		if ( 'fontawesome' === $icon['type'] ) {
+
+			$return = '<span class="fa fa-' . $icon['name'] . '"></span>';
+
+		}
+
+		if ( 'svg' === $icon['type'] ) {
+
+			$check = tcci_get_svg( $icon['name'] );
+
+			if ( ! is_null( $check ) ) {
+
+				$return = $check;
+
+			}
+
+		}
+
+		return $return;
+
+	} // get_icon()
+
+	/**
+	 * Returns an array of info about the icon.
+	 *
+	 * @exits 		If $classes is empty.
+	 * @param 		array 		$classes 			The menu item classes.
+	 * @return 		array 							The type and name of the icon.
+	 */
+	private function get_icon_info( $classes ) {
+
+		if ( empty( $classes ) ) { return; }
+
+		$return = array();
+		$checks = array( 'dic-', 'fas-', 'svg-' );
 
 		foreach ( $classes as $class ) {
 
-			$check = tcci_get_svg( $class );
+			if ( stripos( $class, $checks[0] ) !== FALSE ) {
 
-			if ( ! is_null( $check ) ) { $output .= $check; break; }
+				$return['type'] = 'dashicons';
+				$return['name'] = str_replace( $checks[0], '', $class );
+				break;
+
+			}
+
+			if ( stripos( $class, $checks[1] ) !== FALSE ) {
+
+				$return['type'] = 'fontawesome';
+				$return['name'] = str_replace( $checks[1], '', $class );
+				break;
+
+			}
+
+			if ( stripos( $class, $checks[2] ) !== FALSE ) {
+
+				$return['type'] = 'svg';
+				$return['name'] = str_replace( $checks[2], '', $class );
+				break;
+
+			}
 
 		} // foreach
 
-		return $output;
+		return $return;
 
-	} // get_svg_by_class()
+	} // get_icon_info()
 
 	/**
-	 * Replaces only the search menu item with an icon
+	 * Returns the text position from the menu item class.
 	 *
-	 * @link 	http://www.billerickson.net/customizing-wordpress-menus/
-	 *
-	 * @param 	string 		$item_output		//
-	 * @param 	object 		$item				//
-	 * @param 	int 		$depth 				//
-	 * @param 	array 		$args 				//
-	 *
-	 * @return 	string 							modified menu
+	 * @exits 		If $classes is empty.
+	 * @param 		array 		$classes 			The menu item classes.
+	 * @return 		string 							The text position.
 	 */
-	public function search_icon_only( $item_output, $item, $depth, $args ) {
+	private function get_text_pos( $classes ) {
 
-		if ( '' !== $args->theme_location ) { return $item_output; }
-		if ( 'Search' !== $item->post_title ) { return $item_output; }
+		if ( empty( $classes ) ) { return; }
 
-		//showme( $item );
+		if ( in_array( 'no-text', $classes ) ) { return 'hide'; }
+		if ( in_array( 'text-left', $classes ) ) { return 'left'; }
+		if ( in_array( 'text-right', $classes ) ) { return 'right'; }
+
+		return;
+
+	} // get_text_pos()
+
+	/**
+	 * Add Plus ("+") expander to menus with children
+	 *
+	 * @exits 		If $args is empty.
+	 * @exits 		If $args is not an array.
+	 * @exits 		If not on the correct menu.
+	 * @exits 		If 'menu-item-has-children' is not in the $classes array.
+	 * @hooked 		walker_nav_menu_start_el 		10
+	 * @param 		string 		$item_output		//
+	 * @param 		object 		$item				//
+	 * @param 		int 		$depth 				//
+	 * @param 		array 		$args 				//
+	 * @return 		string 							modified menu
+	 */
+	public function menu_show_hide( $item_output, $item, $depth, $args ) {
+
+		if ( empty( $args ) || is_array( $args ) ) { return $item_output; }
+		if ( 'primary' !== $args->theme_location ) { return $item_output; }
+		if ( ! in_array( 'menu-item-has-children', $item->classes ) ) { return $item_output; }
 
 		$atts 	= $this->get_attributes( $item );
 		$output = '';
-		$output .= '<a class="btn-search dashicons dashicons-search" ' . $atts . '>';
-		$output .= '<span class="screen-reader-text">' . $item->title . '</span>';
+
+		$output .= '<a href="' . $item->url . '">';
+		$output .= $item->title;
+		$output .= '<span class="children"></span>';
 		$output .= '</a>';
+		$output .= '<span class="show-hide flex-center"><span class="dashicons dashicons-arrow-down-alt"></span></span>';
 
 		return $output;
 
-	} // icons_only_menu_item()
+	} // menu_show_hide()
 
 } // class

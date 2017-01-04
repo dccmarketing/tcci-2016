@@ -1,0 +1,96 @@
+.nav-social {
+	background-color: $color__orange;
+
+	@media only screen and (max-width: $bp__headings1 - 1) {
+		padding: 1em;
+
+		[role="banner"] & {
+			display: none;
+		}
+	}
+
+	@media only screen and (min-width: $bp__headings1) {
+		height 			: get( $sizes, 'headerheight' );
+		margin-right 	: 1em;
+		padding-left 	: 0.3em;
+		padding-right 	: 1em;
+		transform 		: $skew__tcci;
+
+		ul {
+			transform: $unskew__tcci translateY(-50%);
+		}
+	}
+
+	@media only screen and (min-width: $bp__headings1) {
+		float 			: left;
+	}
+
+	@media only screen and (min-width: $bp__headings1) and (max-width: $bp__upper-menu - 1) {
+		margin-bottom 	: 0.75em;
+	}
+
+	@media only screen and (min-width: $bp__upper-menu) and (max-width: $bp__upper-menu-2 - 1) {
+		margin-left: 25px;
+	}
+
+	@media only screen and (min-width: $bp__upper-menu-2) and (max-width: $bp__laptop - 1) {
+		margin-left: 0.75em;
+	}
+
+	@media only screen and (min-width: $bp__laptop) {
+		margin-left: 0.75em;
+	}
+
+	ul {
+		display 		: flex;
+		justify-content : center;
+		@include listreset();
+
+		@media only screen and (min-width: $bp__headings1) {
+			justify-content : flex-start;
+			position 		: relative;
+			top 			: 50%;
+		}
+
+	}
+
+	.menu-item {
+		display 		: inline-block;
+		margin 			: 0 0.5em;
+		position 		: relative;
+
+		a {
+			background-color: $color__light;
+			border-radius 	: 50%;
+			display 		: block;
+			height 			: get( $fonts, 'social' ) * 1.75;
+			text-align 		: center;
+			width 			: get( $fonts, 'social' ) * 1.75;
+		}
+
+		svg {
+			height 	: get( $fonts, 'social' );
+			width 	: get( $fonts, 'social' );
+
+			@include vertcenter();
+		}
+	}
+
+	[role="contentinfo"] & {
+
+		ul {
+			flex-wrap: wrap;
+		}
+
+		.search {
+			display 	: block;
+			margin-top 	: 1em;
+			width 		: 75%;
+		}
+
+
+		@media only screen and (min-width: $bp__headings1) {
+			display: none;
+		}
+	}
+}

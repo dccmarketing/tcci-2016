@@ -1,0 +1,82 @@
+.widget-area {
+	float 		: left;
+	overflow 	: auto;
+	padding 	: 1em;
+	width 		: 100%;
+
+	&.markets {
+		display: none;
+
+		@media only screen and (min-width: $bp__tablet) {
+			display : block;
+			float 	: left;
+		}
+	}
+
+	@media only screen and (min-width: $bp__tablet) {
+		float: right;
+		width: get( $sizes, 'sidebar' );
+
+		&.sidebar-content {
+			float 	: left;
+		}
+	}
+}
+
+
+
+.widget {
+	margin: 0 0 1.5em;
+
+	/* Make sure select elements fit in widgets */
+	select {
+		max-width: 100%;
+	}
+
+	.more-link {
+		color 			: $color__orange;
+		display 		: block;
+		text-align 		: right;
+		text-decoration : none;
+		text-transform 	: uppercase;
+	}
+
+	ul {
+		@include listreset();
+	}
+}
+
+.widget-title {
+	color 			: $color__orange;
+	line-height 	: 1;
+	text-transform 	: uppercase;
+}
+
+/* Search widget */
+.widget_search {
+
+	.search-submit {
+		display: none;
+	}
+
+	.search-field {
+		width: 98.5%;
+	}
+}
+
+.widget_sp_image {
+	a {
+ 		display		: block;
+		width 		: 100%;
+	}
+
+	img {
+		max-width 	: 400px !important;
+		width 		: 100%;
+	}
+
+	.widget_sp_image-image-link {
+		text-align 	: center;
+	}
+
+}

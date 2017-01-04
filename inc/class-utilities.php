@@ -6,20 +6,59 @@
  * @package TCCi
  * @author Slushman <chris@slushman.com>
  */
-class TCCi_Utilities {
+class TCCI_Utilities {
 
 	/**
-	 * Constructor
+	 * Initialize the class and set its properties.
+	 *
+	 * @since 		1.0.0
 	 */
 	public function __construct() {} // __construct()
+
+	/**
+	 * Registers all the WordPress hooks and filters for this class.
+	 */
+	public function hooks() {
+
+		add_action( 'init', 							array( $this, 'setup' ) );
+		add_action( 'init', 							array( $this, 'register_menus' ) );
+		add_action( 'init', 							array( $this, 'content_width' ), 0 );
+		add_action( 'wp_enqueue_scripts', 				array( $this, 'enqueue_public' ) );
+		add_action( 'widgets_init', 					array( $this, 'widgets_init' ) );
+		add_action( 'login_enqueue_scripts', 			array( $this, 'enqueue_login' ) );
+		add_action( 'admin_enqueue_scripts', 			array( $this, 'enqueue_admin' ) );
+		add_filter( 'style_loader_src', 				array( $this, 'remove_cssjs_ver' ), 10, 2 );
+		add_filter( 'script_loader_src', 				array( $this, 'remove_cssjs_ver' ), 10, 2 );
+
+		add_filter( 'body_class', 						array( $this, 'page_body_classes' ) );
+		add_action( 'wp_head', 							array( $this, 'background_images' ) );
+		add_filter( 'get_search_form', 					array( $this, 'make_search_button_a_button' ) );
+		add_filter( 'embed_oembed_html', 				array( $this, 'youtube_add_id_attribute' ), 99, 4 );
+		add_filter( 'embed_defaults', 					array( $this, 'set_embed_size' ) );
+		add_action( 'init', 							array( $this, 'disable_emojis' ) );
+		add_filter( 'excerpt_length', 					array( $this, 'excerpt_length' ) );
+		add_filter( 'excerpt_more', 					array( $this, 'excerpt_read_more' ) );
+
+		add_filter( 'post_mime_types', 					array( $this, 'add_mime_types' ) );
+		add_filter( 'single_template', 					array( $this, 'template_newsletters' ) );
+		add_filter( 'upload_mimes', 					array( $this, 'custom_upload_mimes' ) );
+		add_filter( 'mce_buttons_2', 					array( $this, 'add_editor_buttons' ) );
+		add_filter( 'manage_page_posts_columns', 		array( $this, 'page_template_column_head' ), 10 );
+		add_action( 'manage_page_posts_custom_column', 	array( $this, 'page_template_column_content' ), 10, 2 );
+		add_action( 'edit_category', 					array( $this, 'category_transient_flusher' ) );
+		add_action( 'save_post', 						array( $this, 'category_transient_flusher' ) );
+		//add_filter( 'wp_setup_nav_menu_item', 			array( $this, 'add_menu_title_as_class' ), 10, 1 );
+		//add_filter( 'wp_nav_menu_container_allowedtags', array( $this, 'allow_section_tags_as_containers' ), 10, 1 );
+
+	} // hooks()
 
 	public function setup() {
 
 		/*
 		 * Make theme available for translation.
-		 * Translations can be filed in the /languages/ directory.
+		 * Translations can be filed in the /assets/languages/ directory.
 		 */
-		load_theme_textdomain( 'tcci', get_template_directory() . '/languages' );
+		load_theme_textdomain( 'tcci', get_stylesheet_directory() . '/assets/languages' );
 
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );
@@ -52,13 +91,11 @@ class TCCi_Utilities {
 		 * Enable support for Post Formats.
 		 * See https://developer.wordpress.org/themes/functionality/post-formats/
 		 */
-		/*add_theme_support( 'post-formats', array(
-			'aside',
+		add_theme_support( 'post-formats', array(
 			'image',
 			'video',
-			'quote',
 			'link',
-		) );*/
+		) );
 
 		/**
 		 * Set up the WordPress core custom logo feature.
@@ -78,12 +115,14 @@ class TCCi_Utilities {
 		add_theme_support( 'yoast-seo-breadcrumbs' );
 
 		/**
-		 * Register Menus
+		 * Enable WooCommerce support
 		 */
-		register_nav_menus( array(
-			'primary' => esc_html__( 'Primary', 'tcci' ),
-			'social' => esc_html__( 'Social', 'tcci' )
-		) );
+		add_theme_support( 'woocommerce' );
+
+		/**
+		 * Create custom image sizes.
+		 */
+		add_image_size( 'product_thumb', 80, 80 );
 
 	} // setup()
 
@@ -139,17 +178,6 @@ class TCCi_Utilities {
 	} // add_mime_types()
 
 	/**
-	 * Enqueues scripts and styles for the admin
-	 */
-	public function admin_scripts_and_styles( $hook ) {
-
-		wp_enqueue_style( 'tcci-admin', get_stylesheet_directory_uri() . '/admin.css' );
-
-		// if ( 'nav-menus.php' != $hook ) { return; } // Page-specific scripts & styles after this
-
-	} // admin_scripts_and_styles()
-
-	/**
 	 * Adds more allowed tags for WP menu containers.
 	 *
 	 * @param 		array 			$tags 			The current allowed tags
@@ -167,27 +195,30 @@ class TCCi_Utilities {
 	/**
 	 * Creates a style tag in the header with the background image
 	 *
+	 * @exits 		If not on the product_market taxonomy.
+	 * @exits 		If the term meta is empty.
+	 * @exits 		If the image is empty.
 	 * @return 		mixed 			Style tag
 	 */
 	public function background_images() {
 
-		$output = '';
-		$image 	= tcci_get_thumbnail_url( get_the_ID(), 'full' );
+		if ( ! is_tax( 'product_market' ) ) { return FALSE; }
 
-		if ( ! $image ) {
+		global $wp_query;
 
-			$image = get_theme_mod( 'default_bg_image' );
+		$meta 	= get_term_meta( $wp_query->queried_object->term_id );
 
-		}
+		if ( empty( $meta ) ) { return; }
+
+		$image 	= wp_get_attachment_image_src( $meta['market-image'][0], 'full' )[0];
 
 		if ( empty( $image ) ) { return; }
 
 		?><style>
-			.site-content {background-image:url(<?php echo esc_url( $image ); ?>);}
+			.market-img {background-image:url(<?php echo esc_url( $image ); ?>);}
 
 			@media screen and (max-width: 767px){
-				.site-content {background-image:url() !important;}
-				.site-content:before {background-image:url(<?php echo esc_url( $image ); ?>);}
+				.market-img {background-image:url() !important;}
 			}
 
 		</style><!-- Background Images --><?php
@@ -251,7 +282,52 @@ class TCCi_Utilities {
 	} // disable_emojis()
 
 	/**
-	 * Limits excerpt length
+	 * Enqueues scripts and styles for the admin
+	 */
+	public function enqueue_admin( $hook ) {
+
+		wp_enqueue_media();
+
+		wp_enqueue_style( PARENT_THEME_SLUG . '-admin', get_stylesheet_directory_uri() . '/admin.css' );
+
+		wp_enqueue_script( PARENT_THEME_SLUG . '-admin', get_stylesheet_directory_uri() . '/assets/js/admin.min.js', array( 'jquery' ), PARENT_THEME_VERSION, true );
+
+		//wp_enqueue_script( PARENT_THEME_SLUG . '-file-uploader', get_stylesheet_directory_uri() . '/js/file-uploader.js', array( 'jquery' ), PARENT_THEME_VERSION, true );
+
+		// if ( 'nav-menus.php' != $hook ) { return; } // Page-specific scripts & styles after this
+
+	} // enqueue_admin()
+
+	/**
+	 * Enqueues scripts and styles for the login page
+	 */
+	public function enqueue_login() {
+
+		wp_enqueue_style( 'tcci-login', get_stylesheet_directory_uri() . '/login.css', 10, 2 );
+
+		//wp_enqueue_script( 'tcci-login', get_stylesheet_directory_uri() . '/js/login.min.js', array(), '20160518', true );
+
+	} // enqueue_login()
+
+	/**
+	 * Enqueue scripts and styles.
+	 */
+	public function enqueue_public() {
+
+		wp_enqueue_style( 'tcci-style', get_stylesheet_uri() );
+
+		wp_enqueue_script( 'tcci-public', get_stylesheet_directory_uri() . '/assets/js/public.min.js', array( 'jquery', 'enquire' ), '20160518', true );
+
+		wp_enqueue_style( 'dashicons' );
+
+		wp_enqueue_script( 'enquire', '//cdnjs.cloudflare.com/ajax/libs/enquire.js/2.1.2/enquire.min.js', array(), '20150804', true );
+
+		wp_enqueue_style( 'tcci-fonts', $this->fonts_url(), array(), null );
+
+	} // enqueue_public()
+
+	/**
+	 * Limits excerpt length.
 	 *
 	 * @param 	int 		$length 			The current word length of the excerpt
 	 *
@@ -301,7 +377,7 @@ class TCCi_Utilities {
 
 		$return 	= '';
 		$families 	= '';
-		$fonts[] 	= array( 'font' => 'Open Sans', 'weights' => '400,700', 'translate' => esc_html_x( 'on', 'Open Sans font: on or off', 'tcci' ) );
+		$fonts[] 	= array( 'font' => 'Titillium Web', 'weights' => '400,300,600,700', 'translate' => esc_html_x( 'on', 'Titillium Web font: on or off', 'tcci' ) );
 
 		foreach ( $fonts as $font ) {
 
@@ -322,64 +398,6 @@ class TCCi_Utilities {
 		return $return;
 
 	} // fonts_url()
-
-	/**
-	 * Returns a WordPress menu for a shortcode
-	 *
-	 * @param 	array 		$atts 			Shortcode attributes
-	 * @param 	mixed 		$content 		The page content
-	 *
-	 * @return 	mixed 						A WordPress menu
-	 */
-	public function list_menu( $atts, $content = null ) {
-
-		extract( shortcode_atts( array(
-			'menu'            => '',
-			'container'       => 'div',
-			'container_class' => '',
-			'container_id'    => '',
-			'menu_class'      => 'menu',
-			'menu_id'         => '',
-			'echo'            => true,
-			'fallback_cb'     => 'wp_page_menu',
-			'before'          => '',
-			'after'           => '',
-			'link_before'     => '',
-			'link_after'      => '',
-			'depth'           => 0,
-			'walker'          => '',
-			'theme_location'  => ''),
-			$atts )
-		);
-
-		return wp_nav_menu( array(
-			'menu'            => $menu,
-			'container'       => $container,
-			'container_class' => $container_class,
-			'container_id'    => $container_id,
-			'menu_class'      => $menu_class,
-			'menu_id'         => $menu_id,
-			'echo'            => false,
-			'fallback_cb'     => $fallback_cb,
-			'before'          => $before,
-			'after'           => $after,
-			'link_before'     => $link_before,
-			'link_after'      => $link_after,
-			'depth'           => $depth,
-			'walker'          => $walker,
-			'theme_location'  => $theme_location )
-		);
-
-	} // list_menu()
-
-	/**
-	 * Enqueues scripts and styles for the login page
-	 */
-	public function login_scripts() {
-
-		wp_enqueue_style( 'tcci-login', get_stylesheet_directory_uri() . '/login.css', 10, 2 );
-
-	} // login_scripts()
 
 	/**
 	 * Converts the search input button to an HTML5 button element
@@ -490,25 +508,20 @@ class TCCi_Utilities {
 	} // page_template_column_head()
 
 	/**
-	 * Enqueue scripts and styles.
+	 * Registers Menus
+	 *
+	 * @hooked 		after_setup_theme
 	 */
-	public function public_scripts_and_styles() {
+	public function register_menus() {
 
-		wp_enqueue_style( 'tcci-style', get_stylesheet_uri() );
+		register_nav_menus( array(
+			'primary' 		=> esc_html__( 'Primary', 'tcci' ),
+			'social' 		=> esc_html__( 'Social', 'tcci' ),
+			'top-header' 	=> esc_html__( 'Top Header', 'tcci' ),
+			'footer' 		=> esc_html__( 'Footer', 'tcci' )
+		) );
 
-		wp_enqueue_script( 'tcci-navigation', get_template_directory_uri() . '/js/navigation.min.js', array(), '20120206', true );
-
-		wp_enqueue_script( 'tcci-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.min.js', array(), '20130115', true );
-
-		wp_enqueue_style( 'dashicons' );
-
-		//wp_enqueue_script( 'tcci-search', get_template_directory_uri() . '/js/hidden-search.min.js', array(), '20150807', true );
-
-		wp_enqueue_script( 'enquire', '//cdnjs.cloudflare.com/ajax/libs/enquire.js/2.1.2/enquire.min.js', array(), '20150804', true );
-
-		// wp_enqueue_style( 'tcci-fonts', $this->fonts_url(), array(), null );
-
-	} // public_scripts_and_styles()
+	} // register_menus()
 
 	/**
 	 * Removes query strings from static resources
@@ -557,6 +570,45 @@ class TCCi_Utilities {
 	} // remove_private()
 
 	/**
+	 * Sets the default size of embeds.
+	 */
+	public function set_embed_size() {
+
+		return array( 'width' => 500, 'height' => 281 );
+
+	} // set_embed_size()
+
+	/**
+	 * Adds a single post template for the newsletters category.
+	 *
+	 * @param 		string 		$template 		The current single post template.
+	 * @return 		string 						The single post template.
+	 */
+	public function template_newsletters( $template ) {
+
+		if( ! is_single() ) { return $template; }
+
+		global $post;
+
+		$fields = get_fields( $post->ID );
+
+		if( empty( $fields ) ) { return $template; }
+
+		$new_template = '';
+
+		if( has_term( 'newsletters', 'category', $post ) ) {
+
+			$new_template = locate_template( array( 'single-newsletters.php' ) );
+
+		}
+
+		if ( empty( $new_template ) ) { return $template; }
+
+		return $new_template;
+
+	} // template_newsletters()
+
+	/**
 	 * Unlinks breadcrumbs that are private pages
 	 *
 	 * @param 	mixed 		$output 		The HTML output for the breadcrumb
@@ -584,14 +636,35 @@ class TCCi_Utilities {
 	/**
 	 * Register widget areas.
 	 *
-	 * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
+	 * @hooked 		widgets_init
+	 * @link 		https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
 	 */
 	public function widgets_init() {
 
 		register_sidebar( array(
 			'name'          => esc_html__( 'Sidebar', 'tcci' ),
-			'id'            => 'sidebar-1',
-			'description'   => esc_html__( 'Add widgets here.', '_s' ),
+			'id'            => 'sidebar',
+			'description'   => esc_html__( 'Add widgets here.', 'tcci' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		) );
+
+		register_sidebar( array(
+			'name'          => esc_html__( 'Markets', 'tcci' ),
+			'id'            => 'markets',
+			'description'   => esc_html__( 'Add widgets here.', 'tcci' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		) );
+
+		register_sidebar( array(
+			'name'          => esc_html__( 'Home Footer', 'tcci' ),
+			'id'            => 'home_footer',
+			'description'   => esc_html__( 'Add widgets here.', 'tcci' ),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h2 class="widget-title">',

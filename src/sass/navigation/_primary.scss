@@ -1,0 +1,348 @@
+.main-navigation {
+	display			: block;
+	width			: 100%;
+
+	@media only screen and (min-width: $bp__laptop) {
+		float 		: left;
+		margin-left : 1.375em;
+		width 		: auto;
+	}
+
+	ul {
+		@include listreset();
+		text-align 	: left;
+
+		ul {
+			background-color: get( $bgs, 'menu', 'itemmobile' );
+			display			: inherit;
+
+			@media only screen and (min-width: $bp__laptop) {
+				background-color: $color__orange;
+				box-shadow		: 0 3px 3px rgba(0, 0, 0, 0.2);
+				left 			: 0;
+				opacity 		: 0;
+				position		: absolute;
+				transition 		: visibility 0s ease 0.25s, opacity 0.25s ease;
+				visibility 		: hidden;
+				z-index			: 99999;
+			} // breakpoint
+
+			ul {
+
+				@media only screen and (min-width: $bp__sidemenu + 1) {
+					left: 100%;
+					top	: 0;
+				}
+
+				a {
+					@media only screen and (max-width: $bp__sidemenu) {
+						border-left : none;
+						padding 	: 0.5em 3em;
+					}
+				}
+			}
+
+			a {
+				@media only screen and (max-width: $bp__sidemenu) {
+					padding: 0.5em 2em;
+				}
+
+				@media only screen and (min-width: $bp__sidemenu + 1) {
+					color 		: get( $text, 'submenu' );
+					padding 	: 0.5em 1em;
+					white-space : nowrap;
+				}
+			}
+
+			li {
+				display 	: block;
+				text-align 	: left;
+
+				&:last-child {
+
+					@media only screen and (max-width: $bp__sidemenu) {
+						padding-bottom: 0;
+					}
+				}
+
+				&:hover,
+				&:focus,
+				&:active {
+
+					a {
+						@media only screen and (min-width: $bp__laptop) {
+							color: get( $text, 'menu', 'submenu' );
+						}
+					}
+				}
+
+			}
+		} // .submenu ul
+	} // first-level ul
+
+	li {
+		position: relative;
+		transition: 0.3s ease;
+
+		&:hover,
+		&.focus {
+
+			> .wrap-submenu ul {
+				@media only screen and (min-width: $bp__sidemenu + 1) {
+					display 	: block;
+					opacity 	: 1;
+					visibility 	: visible;
+				}
+			}
+
+			> a {
+
+				@media only screen and (min-width: $bp__laptop) {
+					color: get( $text, 'menu', 'hover' );
+				}
+			}
+		}
+	}
+
+	a {
+		color 			: $color__light;
+		display			: block;
+		padding 		: 0.5em 1em;
+		text-decoration	: none;
+		text-transform 	: uppercase;
+
+		@media only screen and (min-width: $bp__sidemenu + 1) {
+			color: get( $text, 'menu', 'base' );
+		}
+
+		@media only screen and (min-width: $bp__headings1) and (max-width: $bp__laptop - 1) {
+			color: $color__dark;
+		}
+
+		&:focus {
+			outline-color: get( $borders, 'outlinemenulink' );
+		}
+	}
+
+	.current_page_item,
+	.current-menu-item,
+	.current-menu-parent,
+	.current_page_ancestor {
+
+		@media only screen and (min-width: $bp__sidemenu + 1) {
+			background-color: get( $bgs, 'menu', 'current' );
+		}
+
+		> a {
+			color: get( $text, 'menu', 'current' );
+			font-weight: 700;
+
+			@media only screen and (min-width: $bp__headings1) and (max-width: $bp__laptop - 1) {
+				color: $color__dark;
+			}
+		}
+	}
+
+	&.toggled {
+
+		.nav-menu {
+			@media only screen and (max-width: $bp__laptop - 1) {
+				@include menutoggle();
+				padding: 0;
+			}
+		}
+
+		.menu-main-menu-container {
+			@media only screen and (min-width: $bp__headings1) and (max-width: $bp__laptop - 1) {
+				transform: translateX( get( $sizes, 'tiltcomp' ) );
+			}
+
+		}
+	}
+
+	.nav-menu {
+
+
+		&[aria-expanded="false"] {
+
+			@media only screen and (max-width: $bp__laptop - 1) {
+				display: none;
+			}
+		}
+
+		&[aria-expanded="true"] {
+			@media only screen and (max-width: $bp__laptop - 1) {
+				display : block;
+				padding : 0;
+			}
+
+			.menu-main-menu-container {
+				@media only screen and (min-width: $bp__headings1) and (max-width: $bp__laptop - 1) {
+					transform: translateX(0);
+				}
+
+			}
+		}
+
+		@media only screen and (min-width: $bp__laptop) {
+			@include center();
+		}
+
+		 > li {
+		 	@media only screen and (max-width: $bp__laptop - 1) {
+				position: relative;
+
+				&.menu-item-has-children {
+
+					.sub-menu {
+						display: none;
+					}
+
+					.show-hide {
+						color 		: $color__light;
+						cursor 		: pointer;
+						height 		: 3.5em;
+						position 	: absolute;
+						right 		: 0;
+						top 		: 0.5em;
+						width 		: 2em;
+					}
+				}
+			}
+
+			@media only screen and (min-width: $bp__laptop) {
+				.show-hide {
+					display: none;
+				}
+			}
+
+		 	 > a {
+				padding: 1.5em 1em;
+			}
+		}
+
+		> a {
+			@media only screen and (min-width: $bp__sidemenu + 1) {
+				color: get( $text, 'menu', 'base' );
+			}
+		}
+	}
+
+	.sub-menu {
+
+		.menu-item {
+
+			&:hover,
+			&:focus,
+			&:active {
+
+				a {
+					color: get( $text, 'menu', 'subpseudo' );
+				}
+			}
+
+			a {
+				@media only screen and (max-width: $bp__laptop - 1) {
+					color: $color__darkgray;
+				}
+			}
+		}
+	}
+
+} // .main-navigation
+
+// Center Menu
+.menu-main-menu-container {
+	margin		: 0 auto;
+
+	/**
+	 * Tablet menu - slide in from left - on top or pushing content
+	 */
+	@media only screen and (min-width: $bp__headings1) and (max-width: $bp__laptop - 1) {
+		background-color: get( $bgs, 'menu', 'tablet' );
+		bottom 			: 0;
+		height 			: 100%;
+		left 			: -#{get( $sizes, 'tiltcomp' )};
+		overflow 		: auto;
+		position 		: fixed;
+		top 			: 0;
+		transform 		: translateX( -$size__menu_width);
+		transition 		: transform 0.4s ease;
+		width 			: get( $sizes, 'menu' );
+		z-index 		: 9999;
+
+		.admin-bar & {
+			padding-top: get( $sizes, 'wpadminbar1' );
+		}
+	}
+
+	@media only screen and (min-width: $bp__admin-bar-1) and (max-width: $bp__laptop - 1) {
+		.admin-bar & {
+			padding-top: get( $sizes, 'wpadminbar2' );
+		}
+	}
+}
+
+
+/* Small menu */
+.menu-toggle {
+	@include menutoggle();
+	background		: get( $bgs, 'menu', 'btnmobile' );
+	color 			: get( $text, 'menu', 'btnmobile' );
+
+	&:hover,
+	&:focus,
+	&:active {
+		background: get( $bgs, 'menu', 'btnmobile' );
+	}
+
+	@media only screen and (min-width: $bp__upper-menu) and (max-width: $bp__upper-menu-2 - 1) {
+		float: none;
+		position: absolute;
+		top: 0;
+		height: 55px;
+		left: 400px;
+	}
+
+	@media only screen and (min-width: $bp__upper-menu-2) {
+		margin-top: 0.5em;
+	}
+
+
+	@media only screen and (min-width: $bp__headings1) {
+		float: right;
+	}
+
+	@media only screen and (min-width: $bp__headings1) and (max-width: $bp__laptop - 1) {
+		background-color: get( $bgs, 'menu', 'btn' );
+		bottom 			: 0;
+		color 			: get( $text, 'menu', 'btn' );
+		margin 			: 0 2em 0 1.25em;
+		transform 		: $skew__tcci;
+		transition 		: left $trans__default;
+		width 			: 200px;
+		z-index 		: 99;
+
+		.btn-text {
+			display 	: block;
+			transform 	: $unskew__tcci;
+		}
+	}
+
+	@media only screen and (min-width: $bp__laptop) {
+		display 		: none;
+	}
+}
+
+.wrap-submenu {
+	@media only screen and (max-width: $bp__laptop - 1) {
+		border-top: 3px solid get( $borders, 'children-hint-mobile' );
+	}
+}
+
+.children-caret {
+	display 	: inline-block;
+	height 		: 0.75em;
+	margin-left : 0.25em;
+	width 		: 0.75em;
+}

@@ -1,0 +1,43 @@
+.nav-topheader {
+	background-color: $color__orange;
+	height 			: get( $sizes, 'headerheight' );
+	padding 		: 0.75em;
+	transform 		: $skew__tcci;
+
+	ul {
+		display 		: flex;
+		position 		: relative;
+		top 			: 50%;
+		transform 		: $unskew__tcci translateY(-50%);
+		@include listreset();
+	}
+
+	li {
+		&:not(:last-child) {
+			a {
+				border-right: 1px solid;
+				margin-right: 0.5em;
+				padding-right: 0.5em;
+			}
+		}
+	}
+
+	a {
+		text-transform 	: lowercase;
+
+		@include unline( $color__dark );
+	}
+
+	@media only screen and (max-width: $bp__upper-menu - 1) {
+		display: none;
+	}
+
+	@media only screen and (min-width: $bp__tablet) {
+		float 			: left;
+		margin-bottom 	: 0.75em;
+	}
+
+	@media only screen and (min-width: $bp__laptop - 1) {
+		margin-bottom: 0;
+	}
+}

@@ -25,26 +25,15 @@
 
 	?><div class="entry-content"><?php
 
-			/* translators: %s: Name of current post */
-			the_content( sprintf(
-				wp_kses( __( 'Continue reading %s <span class="meta-nav">&rarr;</span>', 'tcci' ), array( 'span' => array( 'class' => array() ) ) ),
-				the_title( '<span class="screen-reader-text">"', '"</span>', false )
-			) );
-
-			wp_link_pages( array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'tcci' ),
-				'after'  => '</div>',
-			) );
+		/* translators: %s: Name of current post */
+		the_content( sprintf(
+			wp_kses( __( 'Continue reading %s <span class="meta-nav">&rarr;</span>', 'text-domain' ), array( 'span' => array( 'class' => array() ) ) ),
+			the_title( '<span class="screen-reader-text">"', '"</span>', false )
+		) );
 
 	?></div><!-- .entry-content --><?php
 
 	do_action( 'tcci_entry_content_after' );
-
-	?><footer class="entry-footer"><?php
-
-		tcci_entry_footer();
-
-	?></footer><!-- .entry-footer --><?php
 
 	do_action( 'tcci_entry_bottom' );
 

@@ -3,7 +3,7 @@
 /**
  * Custom walker for adding a wrapper around submenus in the main menu
  */
-class TCCi_Walker extends Walker_Nav_Menu {
+class TCCI_Walker extends Walker_Nav_Menu {
 
 	/**
 	 * Adds a wrapper around submenus

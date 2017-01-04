@@ -1,0 +1,48 @@
+.market-applications {
+
+}
+
+.wrap-market-apps {
+	@include listreset();
+	display 		: flex;
+	flex-wrap 		: wrap;
+	justify-content : center;
+
+	@media only screen and (min-width: $bp__tablet) {
+		justify-content: flex-start;
+	}
+}
+
+.market-app {
+	border 		: 1px solid $color__light;
+	margin 		: 1%;
+	transition 	: $trans__default;
+	width 		: 100%;
+
+	@media only screen and (min-width: $bp__sidemenu) {
+		width: 48%;
+	}
+
+	@media only screen and (min-width: $bp__tablet) {
+		width: 31.33%;
+	}
+
+	&:hover {
+		background-color: $color__orange;
+	}
+
+	.market-img {
+		background-position : center center;
+		background-repeat 	: no-repeat;
+		background-size 	: cover;
+		height 				: 187px;
+		width 				: 100%;
+	}
+
+	a {
+		display 	: block;
+		text-align 	: center;
+
+		@include unline( $color__dark );
+	}
+}

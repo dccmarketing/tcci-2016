@@ -1,0 +1,77 @@
+.wrap-market {
+	display 	: flex;
+	margin 		: 0 auto;
+	max-width 	: get( $sizes, 'max' );
+	overflow 	: auto;
+	width 		: 100%;
+
+	@media only screen and (min-width: $bp__tablet) {
+		padding-left: get( $sizes, 'logo-offset' );
+
+		.content-area {
+			padding-left: 0;
+		}
+	}
+
+	.widget-area {
+		background-color: $color__darkgray;
+		max-width 		: get( $sizes, 'logo' );
+
+		a {
+			@include unline( $color__light );
+
+
+		}
+	}
+}
+
+.market-img {
+	background-repeat: no-repeat;
+	background-position: top center;
+
+	@media only screen and (min-width: $bp__tablet) {
+		height: 335px;
+	}
+}
+
+.title-market {
+	margin 			: 0;
+	text-align 		: center;
+}
+
+.market-products {
+	display 		: flex;
+	flex-wrap 		: wrap;
+	justify-content : flex-start;
+}
+
+.market-product {
+	margin-bottom 	: $size__default-bot-marg;
+	min-width 		: 120px;
+
+	&:hover {
+		.market-thumb {
+			background-color: $color__orange;
+		}
+
+		.market-product-link {
+			//color: $color__orange;
+		}
+	}
+
+	.compressors & {
+		min-width: 100px;
+	}
+}
+
+.market-thumb {
+	border 		: 1px solid $color__light;
+	transition 	: $trans__default;
+	width 		: 80px;
+}
+
+.market-product-link {
+	display 		: block;
+	text-align 		: center;
+	text-decoration : none;
+}

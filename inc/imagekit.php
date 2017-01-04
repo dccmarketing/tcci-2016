@@ -170,6 +170,89 @@ function tcci_get_thumbnail_url( $postID, $size = 'thumbnail' ) {
 } // tcci_get_thumbnail_url()
 
 /**
+ * Return the thumbnail src for Youtube videos
+ *
+ * @param 	string 		$video_url 			The YouTube video URL
+ *
+ * @return 	string 							The video thumbnail URL
+ */
+function tcci_get_video_thumb( $embed_code ) {
+
+	$return = '';
+
+	if ( preg_match( '~youtu~', $embed_code ) ) {
+
+		if ( preg_match( '~iframe~', $embed_code ) ) {
+
+			preg_match( '~src="[^"]*(embed/)([^\?&"]*)~', $embed_code, $video_id );
+
+		} else {
+
+			preg_match( '~(v/|v=)(.*?)(\?|&|\z)~', $embed_code, $video_id );
+
+		}
+
+		$return = "http://img.youtube.com/vi/" . $video_id[2] . "/0.jpg";
+
+	} elseif ( preg_match( '~vimeo~', $embed_code ) ) {
+
+		if ( preg_match( '~iframe~', $embed_code ) ) {
+
+			preg_match( '~src="[^"]*video/([^?&]*)[^"]*"~', $embed_code, $video_id );
+
+		} else {
+
+			preg_match( '~clip_id=(.*?)&~', $embed_code, $video_id );
+
+		}
+
+		$thumb 	= tcci_get_vimeo_thumb( $video_id[1] );
+		$return = $thumb[0]['thumbnail_medium'];
+
+	}
+
+	return $return;
+
+} // tcci_get_video_thumb
+
+#
+# Return the thumbnail src for Vimeo videos
+# $video_id = the Vimeo video id
+#
+function tcci_get_vimeo_thumb( $videoid ) {
+
+	$url 			= "http://vimeo.com/api/v2/video/" . $videoid . ".php";
+	$cache_id 		= 'vimeocache::' . md5( $url );
+	$cache_lifetime = 300;
+	$cached 		= get_option( $cache_id, -1 );
+	$has_cache 		= $cached !== -1;
+	$is_expired 	= isset( $cached['expires'] ) && time() > $cached['expires'];
+
+	if ( ! $has_cache || $is_expired ) {
+
+		$data = wp_remote_get( $url );
+		$data = $data['body'];
+
+		$video_cache = array(
+			'data' => $data,
+			'expires' => time() + $cache_lifetime,
+		);
+
+		update_option( $cache_id, $video_cache );
+
+	} else {
+
+		$data = $cached['data'];
+
+	}
+
+	$finaldata = unserialize($data);
+
+	return $finaldata;
+
+} // tcci_get_vimeo_thumb()
+
+/**
  * Echos the requested SVG
  *
  * @param 	string 		$svg 		The name of the icon to return
@@ -181,3 +264,105 @@ function tcci_the_svg( $svg ) {
 	echo tcci_get_svg( $svg );
 
 } // tcci_the_svg()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Add custom Fonts to the Fonts list
+ *
+ * @param 		string 		$fonts 		The current list of fonts.
+ * @return 		string 		$fonts 		The modified list of fonts.
+ */
+function dmh_add_sighealth_fonts( $fonts ) {
+
+	$fonts['font_formats'] = 'Andale Mono=andale mono,times;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;Comic Sans MS=comic sans ms,sans-serif;Courier New=courier new,courier;Georgia=georgia,palatino;Helvetica=helvetica;Impact=impact,chicago;Symbol=symbol;Tahoma=tahoma,arial,helvetica,sans-serif;Terminal=terminal,monaco;Times New Roman=times new roman,times;Trebuchet MS=trebuchet ms,geneva;Verdana=verdana,geneva;Webdings=webdings;Wingdings=wingdings,zapf dingbats;Zapf=';
+
+	return $fonts;
+
+} // dmh_add_sighealth_fonts()
+
+add_filter( 'tiny_mce_before_init', 'dmh_add_sighealth_fonts' );
+
+
+/**
+ * Add Formats Dropdown Menu To MCE
+ *
+ * @param 		array 		$buttons 		The current array of buttons.
+ * @return 		array 		$buttons 		The modifed array of buttons.
+ */
+function dmh_add_formats_select( $buttons ) {
+
+	array_push( $buttons, 'styleselect' );
+	return $buttons;
+
+} // dmh_add_formats_select()
+
+add_filter( 'mce_buttons', 'dmh_add_formats_select' );
+
+
+
+/**
+ * Add new styles to the TinyMCE "formats" menu dropdown
+ *
+ * @param 		string		$settings 		The current formats select settings.
+ * @return 		string 		$settings 		The modified formats select settings.
+ */
+function dmh_add_format_options( $settings ) {
+
+	$custom['title'] 					= __( 'Signature Health', 'dmh' );
+
+	$custom['items'][0]['title'] 		= __( 'Letterbox', 'dmh' );
+	$custom['items'][0]['block'] 		= 'p';
+	$custom['items'][0]['classes'] 		= 'letterbox';
+
+	$custom['items'][1]['title'] 		= __( 'Uppercase', 'dmh' );
+	$custom['items'][1]['inline'] 		= 'span';
+	$custom['items'][1]['classes'] 		= 'text-uppercase';
+
+	$custom['items'][2]['title'] 		= __( 'Line Behind - Text Center', 'dmh' );
+	$custom['items'][2]['selector'] 	= 'h2';
+	$custom['items'][2]['inline'] 		= 'span';
+	$custom['items'][2]['classes'] 		= 'line-middle lm-text-center';
+
+	$custom['items'][3]['title'] 		= __( 'Line Behind - Text Left', 'dmh' );
+	$custom['items'][3]['selector'] 	= 'h2';
+	$custom['items'][3]['inline'] 		= 'span';
+	$custom['items'][3]['classes'] 		= 'line-middle lm-text-left';
+
+	$custom['items'][4]['title'] 		= __( 'Line Behind - Text Right', 'dmh' );
+	$custom['items'][4]['selector'] 	= 'h2';
+	$custom['items'][4]['inline'] 		= 'span';
+	$custom['items'][4]['classes'] 		= 'line-middle lm-text-right';
+
+	$settings['style_formats_merge'] 	= true;
+	$settings['style_formats'] 			= json_encode( $custom );
+
+	return $settings;
+
+} // dmh_add_format_options()
+
+add_filter( 'tiny_mce_before_init', 'dmh_add_format_options' );
+
+
+/**
+ * Adds a stylesheet to the editor.
+ */
+function dmh_add_editor_styles() {
+
+	add_editor_style( 'css/dmhsighealth.css' );
+
+} // dmh_add_editor_styles()
+
+add_action( 'init', 'dmh_add_editor_styles' );

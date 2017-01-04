@@ -1,0 +1,43 @@
+button,
+[type="button"],
+[role="button"],
+[type="reset"],
+[type="submit"] {
+	background 			: get( $bgs, 'btn', 'base' );
+	border 				: 1px solid;
+	border-color 		: get( $borders, 'btn', 'base' );
+	border-radius		: 3px;
+	box-shadow 			: inset 0 1px 0 get( $shadows, 'btninner', 'base' ), inset 0 15px 17px get( $shadows, 'btninner', 'base' ), inset 0 -5px 12px get( $shadows, 'btninner2', 'base' );
+	color 				: get( $text, 'btn', 'base' );
+	@include font-size(0.75);
+	line-height 		: 1;
+	padding 			: .6em 1em .4em;
+	text-shadow 		: 0 1px 0 get( $shadows, 'btntext' );
+
+	&:hover {
+		background-color 	: get( $bgs, 'btn', 'hover' );
+		border-color 		: get( $borders, 'btn', 'hover' );
+		color 				: get( $text, 'btn', 'hover' );
+	}
+
+	&:focus,
+	&:active {
+		background-color 	: get( $bgs, 'btn', 'focus' );
+		border-color 		: get( $borders, 'btn', 'focus' );
+		color 				: get( $text, 'btn', 'focus' );
+	}
+}
+
+.btn {
+	background-color: $color__orange;
+	border 			: 1px solid $color__light;
+	display 		: inline-block;
+	padding 		: 0.5em;
+	text-decoration : none;
+	transition 		: $trans__default;
+
+	&:hover {
+		background-color: $color__light;
+		border-color 	: $color__orange;
+	}
+}

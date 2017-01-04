@@ -1,0 +1,47 @@
+// Rem output with px fallback
+@mixin font-size($sizeValue: 1) {
+	font-size: ($sizeValue * 16) + px;
+	font-size: $sizeValue + rem;
+}
+
+// Center block
+%center-block {
+	display 		: block;
+	margin-left 	: auto;
+	margin-right 	: auto;
+}
+
+// Clearfix
+%clearfix {
+	content 	: "";
+	display 	: table;
+	table-layout: fixed;
+}
+
+// Clear after (not all clearfix need this also)
+%clearfix-after {
+	clear: both;
+}
+
+/**
+ * Returns the a variable from maps
+ *
+ * @param 	string 		$map 				Map name
+ * @param 	string 		$name 				Variable name
+ * @param 	string 		$variant: null 		Variable variant name
+ *
+ * @return 	mixed 							The variable value
+ */
+@function get( $map, $name, $variant: null ) {
+
+	// color variant is optional
+	@if ( $variant != null ) {
+
+		@return map-get( map-get( $map, $name ), $variant );
+
+	} @else {
+
+		@return map-get( $map, $name );
+
+	}
+}

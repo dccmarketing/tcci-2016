@@ -1,0 +1,27 @@
+.woocommerce-page {
+	.product-category {
+		border 		: 1px solid $color__light;
+		transition 	: $trans__default;
+
+		&:hover {
+			background-color: $color__orange;
+		}
+
+		a {
+			display: block;
+		}
+
+		img {
+			margin-bottom: 0 !important;
+		}
+
+		h3 {
+			padding-top : 0 !important;
+			text-align 	: center;
+		}
+	}
+
+	.term-description {
+		margin-bottom: $size__default-bot-marg * 2;
+	}
+}

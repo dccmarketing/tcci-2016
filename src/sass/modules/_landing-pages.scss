@@ -1,0 +1,43 @@
+.features {
+	@include listreset();
+
+	@media screen and (min-width: get( $bps, 'tablet' ) ) {
+		display 		: flex;
+	}
+
+	li {
+		margin-bottom 	: get( $sizes, 'margin' );
+		text-align 		: center;
+	}
+
+	a {
+		display: block;
+	}
+}
+
+.four-features {
+
+	@media screen and (min-width: get( $bps, 'tablet' ) ) {
+		flex-wrap 		: wrap;
+		justify-content : space-between;
+
+		li {
+			width: 45%;
+		}
+	}
+	
+}
+
+.feat-video {
+	.dashicons {
+		color 			: $color__light;
+		font-size 		: 60px;
+		height 			: 60px;
+		left 			: calc( 50% - 30px );
+		position 		: absolute;
+		text-decoration : none;
+		top 			: 50%;
+		transform 		: translateY(-50%);
+		width 			: 60px;
+	}
+}

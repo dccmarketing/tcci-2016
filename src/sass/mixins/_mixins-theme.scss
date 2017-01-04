@@ -1,0 +1,13 @@
+@mixin featuredtext( $size ) {
+	font-size 		: $size;
+	font-style 		: italic;
+	font-weight 	: 700;
+	line-height 	: 1;
+	text-shadow 	: 1px 1px 3px $color__dark;
+	text-transform 	: uppercase;
+}
+
+@mixin white_on_orange() {
+	background-color: $color__orange;
+	color 			: $color__light;
+}

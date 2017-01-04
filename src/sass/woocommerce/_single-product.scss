@@ -1,0 +1,67 @@
+.woocommerce {
+	div.product {
+		.woocommerce-tabs {
+			ul.tabs{
+				@include listreset();
+
+				&:before {
+					border: none;
+				}
+
+				li {
+					background-color: transparent;
+					border 			: 1px solid $color__light;
+					border-radius 	: 0;
+					margin 			: 0;
+					transition 		: $trans__default;
+
+					&:before,
+					&:after {
+						display: none;
+					}
+
+					&.active {
+						background 	: $color__orange;
+						color 		: $color__light;
+
+						&:hover {
+							background 	: $color__light;
+
+							a {
+								color 		: $color__orange;
+							}
+						}
+					}
+
+					&:hover {
+						background-color: $color__darkgray;
+
+						a {
+							color 			: $color__light;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.woocommerce {
+	table.shop_attributes {
+		border 			: none;
+		border-collapse : collapse;
+	}
+}
+
+.single-product {
+	.product {
+		.images {
+			border 		: 1px solid $color__light;
+			transition 	: $trans__default;
+
+			&:hover {
+				background-color: $color__orange;
+			}
+		}
+	}
+}

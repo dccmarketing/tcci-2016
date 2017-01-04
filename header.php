@@ -74,9 +74,9 @@ do_action( 'tcci_html_before' );
 			/**
 			 * The tcci_header_bottom action hook
 			 *
-			 * @hooked 		tcci_header_bottom 	85
+			 * @hooked 		tcci_header_bottom 	80
+			 * @hooked 		primary_menu 		85
 			 * @hooked 		header_wrap_end 	90
-			 * @hooked 		primary_menu 		95
 			 */
 			do_action( 'tcci_header_bottom' );
 

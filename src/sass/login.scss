@@ -1,0 +1,95 @@
+/**
+ * Custom styling for the login form page
+ */
+ @import "variables-site/variables-site";
+ @import "mixins/mixins-master";
+ @import "mixins/mixins-slushman";
+ @import "mixins/mixins-theme";
+
+.login { // page body tag
+	background: $color__light;
+
+	#login { // div container for login form
+
+		h1 {
+
+			a {
+/* 				background-image: url(images/logo.jpg);
+			    background-size : contain;
+			    height 			: 110px;
+			    width 			: 110px; // max: 320px
+ */			}
+		}
+	}
+
+	form {
+		background-color: $color__med;
+		padding-bottom 	: 1.5em;
+
+		p {
+
+		}
+
+		label {
+			color: $color__light;
+		}
+	}
+
+	[type="text"],
+	[type="password"] { // username and password fields
+		background-color: $color__med;
+		border 			: 0;
+		color 			: $color__light;
+
+		&:focus,
+		&:active {
+			border 		: 1px solid $color__med;
+			box-shadow 	: 0 0 5sdpx $color__med;
+		}
+	}
+
+	.submit { // submit button p tag
+
+	}
+
+	[type="submit"] { // submit button itself
+		background-color: $color__med;
+		border 			: 0;
+		border-radius 	: 0;
+		box-shadow 		: none;
+		color 			: $color__light;
+		font-size 		: 1.25em;
+		font-weight 	: 700;
+		text-transform 	: uppercase;
+
+		&:hover {
+			background-color: darken( $color__med, 25% );
+			color 			: $color__light;
+		}
+	}
+
+	#nav,
+	#backtoblog {
+
+		a {
+			color: $color__dark;
+
+			&:hover {
+				color: $color__med;
+			}
+		}
+	}
+
+	.forgetmenot { // remember me checkbox p tag
+
+		label {
+
+		}
+	}
+
+	[type="checkbox"] { // checkbox itself
+		background-color: $color__med;
+		color 			: $color__light;
+	}
+
+}

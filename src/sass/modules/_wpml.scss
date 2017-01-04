@@ -1,0 +1,62 @@
+$langmarg: 1em;
+
+.langs {
+	height 			: get( $sizes, 'headerheight' );
+	margin 			: 0 auto;
+	max-width 		: 400px;
+	padding-left 	: 2em;
+
+	@media only screen and (min-width: $bp__sidemenu + 1) {
+		background-color: $color__orange;
+		margin-bottom 	: 0;
+		margin-right 	: 0;
+		margin-top 		: 0;
+		padding-left 	: 0.5em;
+		padding-right 	: 1em;
+		transform 		: $skew__tcci;
+	}
+
+	@media only screen and (min-width: $bp__sidemenu + 1) and (max-width: $bp__tablet - 1) {
+		margin-left: 0.25em;
+	}
+
+	@media only screen and (min-width: $bp__tablet) {
+		float 			: left;
+		margin-bottom 	: 0.75em;
+		margin-left 	: 0;
+	}
+
+	@media only screen and (min-width: $bp__laptop - 1) {
+		margin-bottom: 0;
+	}
+}
+
+#lang_sel {
+	margin 			: 0;
+	position 		: relative;
+	top 			: 50%;
+	transform 		: translateY(-50%);
+	width 			: 100%;
+
+	li {
+		@media only screen and (max-width: $bp__sidemenu) {
+			width: calc( 100% - #{$langmarg*2} );
+		}
+
+		li {
+			width: 100%;
+		}
+	}
+
+	ul {
+		display: block;
+
+		ul {
+			width: 100%;
+		}
+	}
+
+	@media only screen and (min-width: $bp__sidemenu + 1) {
+		transform 		: $unskew__tcci translateY(-50%);
+	}
+}

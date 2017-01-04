@@ -1,0 +1,31 @@
+/**
+ * Custom styling for the admin
+ */
+ @import "variables-site/variables-site";
+ @import "mixins/mixins-master";
+ @import "mixins/mixins-slushman";
+ @import "mixins/mixins-theme";
+
+.wp-admin {
+
+}
+
+// Hide SimpleMap Update Nag
+.toplevel_page_simplemap,
+.post-type-sm-location {
+	.update-nag {
+		display: none;
+	}
+}
+
+.image-upload-preview {
+	background-repeat 	: no-repeat;
+	background-position : center center;
+	background-size 	: cover;
+	height 				: 150px;
+	width 				: 150px;
+
+	&.bordered {
+		border 				: 4px dashed #b4b9be;
+	}
+}

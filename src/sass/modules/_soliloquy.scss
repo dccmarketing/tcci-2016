@@ -1,0 +1,19 @@
+
+@media only screen and (min-width: get( $bps, 'laptop' ) ) {
+
+	.soliloquy-container {
+		.soliloquy-pager {
+			bottom: -7% !important;
+		}
+
+		.soliloquy-next {
+			background-color: $color__darkgray !important;
+			right 			: -3.5% !important;
+		}
+
+		.soliloquy-prev {
+			background-color: $color__darkgray !important;
+			left 			: -3.5% !important;
+		}
+	}
+}

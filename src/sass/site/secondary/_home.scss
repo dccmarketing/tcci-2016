@@ -1,0 +1,109 @@
+.sidebar-homefooter {
+	background-color: $color__light;
+	float 			: none;
+	width 			: 100%;
+
+	.widget-title {
+		font-style: italic;
+	}
+
+	p {
+		margin: 0 auto 1.5em;
+	}
+
+	h2 {
+		margin-top: 0;
+	}
+
+	.wrap {
+		margin 	: 0 auto;
+		padding : 1em;
+
+		@media screen and (min-width: get( $bps, 'tablet' )) {
+			display 		: flex;
+			justify-content : space-between;
+			padding 		: 3em 0 1em;
+		}
+	}
+
+	section.widget {
+
+		@media screen and (max-width: get( $bps, 'tablet' ) - 1) {
+			margin: 0;
+
+			&:not(:last-child) {
+				margin-bottom: 3em;
+			}
+		}
+
+		@media screen and (min-width: get( $bps, 'tablet' )) {
+			width 	: 32%;
+		}
+	}
+
+	.textwidget {
+		font-size 	: 1.25em;
+		font-style 	: italic;
+		font-weight : 700;
+
+		a {
+			text-decoration: none;
+		}
+
+		p {
+			margin-bottom: 0.75em;
+		}
+	}
+
+	.post-title {
+		font-style 	: italic;
+		margin 		: 0;
+
+		a {
+			color 		: $color__darkgray;
+			font-size 	: 1.25em;
+			font-weight : 700;
+		}
+	}
+
+	.widget_ultimate_posts {
+
+		@media screen and (max-width: get( $bps, 'tablet' ) - 1) {
+			text-align: center;
+		}
+
+		li {
+			margin-bottom: 1.5em;
+		}
+	}
+
+	.widget_sp_image-description {
+		color 		: $color__orange;
+		margin-top 	: 1.5em;
+
+		h2 {
+			font-style 		: italic;
+			margin-bottom 	: 0.25em;
+			text-transform 	: uppercase;
+		}
+
+		ul {
+			display 		: flex;
+			flex-wrap 		: wrap;
+			margin-bottom 	: 0.75em;
+		}
+
+		li {
+			&:not(:last-child) {
+				margin-right: 0.5em;
+
+				&:after {
+					color 		: $color__dark;
+					content 	: "\2022";
+					display 	: inline-block;
+					margin-left : 0.5em;
+				}
+			}
+		}
+	}
+}

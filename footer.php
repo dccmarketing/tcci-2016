@@ -43,7 +43,7 @@
 			/**
 			 * The tcci_footer_bottom action hook
 			 */
-			do_action( 'tcci_footer_bottom' );\
+			do_action( 'tcci_footer_bottom' );
 
 		?></footer><!-- #colophon --><?php
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * The sidebar for the Sidrbar Content page template
+ * The sidebar for the Sidebar Content page template
  *
  * @package TCCi
  */

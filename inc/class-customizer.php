@@ -8,12 +8,26 @@
  * @since 		1.0.0
  * @package  	TCCi
  */
-class TCCi_Customizer {
+class TCCI_Customizer {
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {}
+
+	/**
+	 * Registers all the WordPress hooks and filters for this class.
+	 */
+	 public function hooks() {
+
+		add_action( 'customize_register', 					array( $this, 'register_panels' ) );
+ 		add_action( 'customize_register', 					array( $this, 'register_sections' ) );
+ 		add_action( 'customize_register', 					array( $this, 'register_fields' ) );
+ 		add_action( 'wp_head', 								array( $this, 'header_output' ) );
+ 		add_action( 'customize_preview_init', 				array( $this, 'live_preview' ) );
+ 		add_action( 'customize_controls_enqueue_scripts', 	array( $this, 'control_scripts' ) );
+
+	 } // hooks()
 
 	/**
 	 * Registers custom panels for the Customizer
@@ -25,17 +39,6 @@ class TCCi_Customizer {
 	 * @param 		WP_Customize_Manager 		$wp_customize 		Theme Customizer object.
 	 */
 	public function register_panels( $wp_customize ) {
-
-		// Theme Options Panel
-		$wp_customize->add_panel( 'theme_options',
-			array(
-				'capability'  		=> 'edit_theme_options',
-				'description'  		=> esc_html__( 'Options for TCCi 2016', 'tcci' ),
-				'priority'  		=> 10,
-				'theme_supports'  	=> '',
-				'title'  			=> esc_html__( 'Theme Options', 'tcci' ),
-			)
-		);
 
 		/*
 		// Theme Options Panel
@@ -75,6 +78,19 @@ class TCCi_Customizer {
 	 * @param 		WP_Customize_Manager 		$wp_customize 		Theme Customizer object.
 	 */
 	public function register_sections( $wp_customize ) {
+
+		// Products Section
+		$wp_customize->add_section( 'products',
+			array(
+				'active_callback' 	=> '',
+				'capability'  		=> 'edit_theme_options',
+				'description'  		=> esc_html__( '', 'tcci' ),
+				'panel' 			=> '',
+				'priority'  		=> 10,
+				'theme_supports'  	=> '',
+				'title'  			=> esc_html__( 'Products', 'tcci' ),
+			)
+		);
 
 		/*
 		// New Section
@@ -138,6 +154,93 @@ class TCCi_Customizer {
 			)
 		);
 		$wp_customize->get_setting( 'tag_manager' )->transport = 'postMessage';
+
+
+
+		$forms 		= FrmForm::get_published_forms();
+		$choices 	= array();
+
+		foreach ( $forms as $form ) {
+
+			$choices[$form->id] = $form->name;
+
+		}
+
+		// Formidable Forms Select Field
+		$wp_customize->add_setting(
+			'formidable_form_select',
+			array(
+				'capability' 		=> 'edit_theme_options',
+				'default'  			=> '',
+				'transport' 		=> 'postMessage',
+				'type' 				=> 'theme_mod'
+			)
+		);
+		$wp_customize->add_control(
+			'formidable_form_select',
+			array(
+				'active_callback' 	=> '',
+				'choices' 			=> $choices,
+				'description' 		=> esc_html__( '', 'tcci' ),
+				'label'  			=> esc_html__( 'Formidable Forms Select', 'tcci' ),
+				'priority' 			=> 10,
+				'section'  			=> 'products',
+				'settings' 			=> 'formidable_form_select',
+				'type' 				=> 'select'
+			)
+		);
+		$wp_customize->get_setting( 'formidable_form_select' )->transport = 'postMessage';
+
+
+		// Resources Description Field
+		$wp_customize->add_setting(
+			'resources_description',
+			array(
+				'capability' 		=> 'edit_theme_options',
+				'default'  			=> '',
+				'sanitize_callback' => 'sanitize_text_field',
+				'transport' 		=> 'postMessage',
+				'type' 				=> 'theme_mod'
+			)
+		);
+		$wp_customize->add_control(
+			'resources_description',
+			array(
+				'active_callback' 	=> '',
+				'description' 		=> esc_html__( '', 'tcci' ),
+				'label'  			=> esc_html__( 'Resources Description', 'tcci' ),
+				'priority' 			=> 10,
+				'section'  			=> 'products',
+				'settings' 			=> 'resources_description',
+				'type' 				=> 'text'
+			)
+		);
+		$wp_customize->get_setting( 'resources_description' )->transport = 'postMessage';
+
+		// Resources Tab Name Field
+		$wp_customize->add_setting(
+			'resources_tab_name',
+			array(
+				'capability' 		=> 'edit_theme_options',
+				'default'  			=> '',
+				'sanitize_callback' => 'sanitize_text_field',
+				'transport' 		=> 'postMessage',
+				'type' 				=> 'theme_mod'
+			)
+		);
+		$wp_customize->add_control(
+			'resources_tab_name',
+			array(
+				'active_callback' 	=> '',
+				'description' 		=> esc_html__( '', 'tcci' ),
+				'label'  			=> esc_html__( 'Resources Tab Name', 'tcci' ),
+				'priority' 			=> 10,
+				'section'  			=> 'products',
+				'settings' 			=> 'resources_tab_name',
+				'type' 				=> 'text'
+			)
+		);
+		$wp_customize->get_setting( 'resources_tab_name' )->transport = 'postMessage';
 
 
 
@@ -816,7 +919,7 @@ class TCCi_Customizer {
 	 */
 	public function live_preview() {
 
-		wp_enqueue_script( 'tcci_customizer', get_template_directory_uri() . '/js/customizer.min.js', array( 'jquery', 'customize-preview' ), '', true );
+		wp_enqueue_script( 'tcci_customizer', get_stylesheet_directory_uri() . '/assets/js/customizer.min.js', array( 'jquery', 'customize-preview' ), '', true );
 
 	} // live_preview()
 
@@ -831,7 +934,7 @@ class TCCi_Customizer {
 	 */
 	public function control_scripts() {
 
-		wp_enqueue_script( 'tcci_customizer_controls', get_template_directory_uri() . '/js/customizer-controls.min.js', array( 'jquery', 'customize-controls' ), false, true );
+		wp_enqueue_script( 'tcci_customizer_controls', get_stylesheet_directory_uri() . '/assets/js/customizer-controls.min.js', array( 'jquery', 'customize-controls' ), false, true );
 
 	} // control_scripts()
 
@@ -844,9 +947,6 @@ class TCCi_Customizer {
 	public function states_of_country_callback( $control ) {
 
 		$country_setting = $control->manager->get_setting('country')->value();
-
-		//wp_die( print_r( $radio_setting ) );
-		//wp_die( print_r( $control->id ) );
 
 		if ( 'us_state' === $control->id && 'US' === $country_setting ) { return true; }
 		if ( 'canada_state' === $control->id && 'CA' === $country_setting ) { return true; }

@@ -1,0 +1,21 @@
+.comment-navigation,
+.posts-navigation,
+.post-navigation {
+
+	main & {
+		margin	: 0 0 map_get( $sizes, 'margin' );
+		overflow: hidden;
+		width 	: 100%;
+	}
+
+	.nav-previous {
+		float	: left;
+		width	: 50%;
+	}
+
+	.nav-next {
+		float		: right;
+		text-align 	: right;
+		width		: 50%;
+	}
+}

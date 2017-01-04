@@ -1,0 +1,155 @@
+.sticky {
+	display: block;
+}
+
+.hentry {
+	margin: 0 0 1.5em;
+
+	.home & {
+		margin-bottom: 0;
+
+		@media only screen and (min-width: get( $bps, 'laptop' ) ) {
+			margin-bottom: 0.5em;
+		}
+	}
+
+	.blog & {
+		margin-bottom: 1%;
+	}
+}
+
+.page-header {
+	width: 100%;
+}
+
+.page-content,
+.entry-content,
+.entry-summary {
+	margin 		: 1.5em 0 0;
+
+	.home & {
+		margin-top: 0;
+	}
+}
+
+.page-links {
+	clear: both;
+	margin: 0 0 1.5em;
+}
+
+.site-content {
+	background-color: $color__gray;
+	transition 		: $trans__default;
+	width 			: 100%;
+
+	@media only screen and (min-width: $bp__tablet) and (max-width: $bp__laptop - 1) {
+		.toggled & {
+			padding-left: get( $sizes, 'menu' );
+		}
+	}
+}
+
+.content-area {
+	padding 	: 1em;
+	width 		: 100%;
+	margin 		: 0 auto get( $sizes, 'margin' );
+	max-width 	: get( $sizes, 'max' );
+
+
+	.home & {
+		margin-bottom: 0;
+		overflow: visible;
+		padding: 0;
+	}
+
+	@media only screen and (min-width: $bp__tablet) {
+		&.content-sidebar {
+			float 	: left;
+			margin 	: 0 2.5% 0 0;
+			width 	: get( $sizes, 'content' );
+		}
+
+		&.sidebar-content {
+			float 	: right;
+			margin 	: 0 0 0 2.5%;
+			width 	: get( $sizes, 'content' );
+		}
+	}
+
+	@media only screen and (min-width: $bp__upper-menu) {
+		padding-left: get( $sizes, 'logo-offset' );
+		transition 	: $trans__default;
+
+		.toggled & {
+			padding-left: 1em;
+		}
+	}
+}
+
+.single {
+	.entry-title {
+		text-transform 	: uppercase;
+	}
+}
+
+.page-title {
+	text-transform 	: uppercase;
+}
+
+.blog,
+.category:not(.category-articles),
+.search {
+
+	article:not(.format-link) {
+		transition 	: $trans__default;
+	}
+
+	.entry-title {
+		margin 			: 0;
+		text-transform 	: uppercase;
+
+		a {
+			text-decoration: none;
+		}
+	}
+
+	.entry-content {
+		margin-top: 0;
+	}
+
+	.entry-header {
+		display: flex;
+	}
+
+	.entry-meta {
+		margin-right: 2.5%;
+
+		.posted-on {
+			background-color: $color__light;
+			border-radius 	: 50%;
+			display 		: block;
+			height 			: 3em;
+			line-height 	: 3em;
+			text-align 		: center;
+			text-decoration : none;
+			width 			: 3em;
+		}
+	}
+}
+
+.format-link {
+	.dashicons-admin-links {
+		background-color: $color__light;
+		border-radius 	: 50%;
+		font-size 		: 1.5em;
+		height 			: 2em;
+		line-height 	: 2em;
+		text-align 		: center;
+		text-decoration : none;
+		width 			: 2em;
+	}
+}
+
+.dashwrap {
+	margin-right: 2.5%;
+}

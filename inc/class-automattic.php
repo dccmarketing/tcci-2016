@@ -6,12 +6,22 @@
  *
  * @package  	TCCi
  */
-class TCCi_Automattic {
+class TCCI_Automattic {
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {} // __construct()
+
+	/**
+	 * Registers all the WordPress hooks and filters for this class.
+	 */
+	public function hooks() {
+
+		add_action( 'init', array( $this, 'jetpack_setup' ) );
+		add_action( 'init', array( $this, 'wpcom_setup' ) );
+
+	} // hooks()
 
 	/**
 	 * Jetpack setup function.

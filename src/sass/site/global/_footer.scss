@@ -1,0 +1,54 @@
+[role="contentinfo"] {
+	color 		: $color__light;
+	float 		: left;
+	width 		: 100%;
+
+	a {
+		color: $color__light;
+	}
+
+	.site-description {
+		@include featuredtext( get( $fonts, 'feature' ) );
+		margin: 1em;
+	}
+}
+
+.wrap-footer {
+	overflow 	: auto;
+	padding 	: 1em;
+
+}
+
+.site-info {
+	overflow 	: auto;
+	text-align 	: center;
+	width 		: 100%;
+
+	ul {
+		@include listreset();
+
+		@media screen and (min-width: get( $bps, 'sidemenu' )) {
+			display 		: flex;
+			flex-wrap 		: wrap;
+			justify-content : center;
+		}
+	}
+
+	li {
+		padding: 0.5em 0;
+
+		@media screen and (min-width: get( $bps, 'sidemenu' )) and (max-width: (get( $bps, 'footer' ) - 1)) {
+			padding : 1em 0;
+			width 	: 50%;
+		}
+
+		@media screen and (min-width: get( $bps, 'footer' )) {
+			margin 	: 0.5em 0;
+			padding : 0 0.5em;
+
+			&:not(:last-child) {
+				border-right: 1px solid $color__light;
+			}
+		}
+	}
+}

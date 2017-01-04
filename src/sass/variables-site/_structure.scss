@@ -1,0 +1,65 @@
+$size__site-main		: 100%;
+$size__site-sidebar		: 25%;
+
+$size__default-bot-marg	: 1.5em;
+$size__max-width 		: 1000px;
+
+$size__menu_width 		: 300px;
+$size__hidden-search 	: 180px;
+$size__search-height 	: 39px;
+
+$size__wp-admin-bar-1 	: 46px;
+$size__wp-admin-bar-2 	: 32px;
+
+$trans__default 		: 0.3s ease;
+
+$skew__tcci 			: skew(20deg);
+$unskew__tcci 			: skew(-20deg);
+
+$sizes: (
+    'max'           : 62.5em,
+    'wpadminbar1'   : 46px,
+    'wpadminbar2'   : 32px,
+    'menu'          : 18.75em,
+    'search'        : 11.25em,
+    'margin'        : 1.5em,
+    'content'       : 70%,
+    'sidebar'       : 27.5%,
+    'logo'          : 205px,
+	'logo-offset' 	: 69px,
+    'tiltcomp'      : 44px,
+    'tiltpad'       : 1rem,
+	'headerheight' 	: 55px,
+);
+
+/**
+ * Login Page
+ */
+$size__login-logo-bg 	: 84px; // default size
+$size__login-logo-width : 84px;
+$size__login-logo-height: 84px;
+
+/**
+ * Breakpoints
+ */
+$bps: (
+    'sidemenu'      : 600px,
+    'headings1'     : 43.75em,
+    'tablet'        : 48em,
+    'adminbar1'     : 48.9375em,
+    'headings2'     : 56.25em,
+    'menu-button'   : 64em,
+    'laptop'        : 64em,
+    'final'         : 75em,
+    'footer'        : 865px
+);
+
+
+$bp__sidemenu			: 600px; // 37.5em
+$bp__headings1 			: 700px; // 43.75em
+$bp__tablet				: 768px; // 48em
+$bp__admin-bar-1		: 783px;
+$bp__upper-menu         : 825px;
+$bp__upper-menu-2 		: 875px;
+$bp__headings2 			: 900px; // 56.25em
+$bp__laptop				: 1060px; // 64em

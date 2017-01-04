@@ -28,6 +28,27 @@ function tcci_get_attachment_by_name( $post_name ) {
 } // tcci_get_attachment_by_name()
 
 /**
+ * Returns the proper link based on the Link Type selection.
+ *
+ * @param 		array 		$feature 			The ACF fields
+ *
+ * @return 		string 							The URL
+ */
+function tcci_get_link( $feature ) {
+
+	if ( empty( $feature ) ) { return ''; }
+
+	if ( 'internal' === $feature['link_type'] ) {
+
+		return $feature['page'];
+
+	}
+
+	return $feature['url'];
+
+} // tcci_get_link()
+
+/**
  * Returns a post object of the requested post type
  *
  * @param 	string 		$post 			The name of the post type
@@ -39,7 +60,7 @@ function tcci_get_posts( $post, $params = array(), $cache = '' ) {
 
 	if ( empty( $post ) ) { return -1; }
 
-	$return = '';
+	$return = false;
 	$cache_name = 'posts';
 
 	if ( ! empty( $cache ) ) {
@@ -48,13 +69,13 @@ function tcci_get_posts( $post, $params = array(), $cache = '' ) {
 
 	}
 
-	$return = wp_cache_get( $cache_name, 'posts' );
+	//$return = wp_cache_get( $cache_name, 'posts' );
 
 	if ( false === $return ) {
 
 		$args['post_type'] 				= $post;
 		$args['post_status'] 			= 'publish';
-		$args['order_by'] 				= 'date';
+		$args['orderby'] 				= 'date';
 		$args['posts_per_page'] 		= 50;
 		$args['no_found_rows']			= true;
 		$args['update_post_meta_cache'] = false;
@@ -95,6 +116,21 @@ function tcci_get_posts_page() {
 	}
 
 } // tcci_get_posts_page()
+
+/**
+ * Returns a sidebar. Allows for placing a sidebar
+ * using a hook.
+ *
+ * @param 	string 		$sidebar_name 			Sidebar name
+ * @return 	mixed 								A sidebar
+ */
+function tcci_get_sidebar( $sidebar_name ) {
+
+	if ( empty( $sidebar_name ) ) { return; }
+
+	return get_sidebar( $sidebar_name );
+
+} // tcci_get_sidebar()
 
 /**
  * Returns a Google Map link from an address
