@@ -37,10 +37,14 @@ class TCCI_WooCommerce {
 		remove_action( 'woocommerce_single_product_summary', 				'woocommerce_template_single_sharing', 50 );
 		remove_action( 'woocommerce_after_single_product_summary', 			'woocommerce_output_product_data_tabs', 10 );
 		remove_action( 'woocommerce_after_single_product_summary', 			'woocommerce_output_related_products', 20 );
+		remove_action( 'woocommerce_single_variation', 						'woocommerce_single_variation_add_to_cart_button', 20 );
 		add_action( 'woocommerce_before_single_product', 					'woocommerce_template_single_title' );
 		add_action( 'woocommerce_single_product_summary', 					'woocommerce_output_product_data_tabs', 4 );
 		add_action( 'pre_get_posts', 										array( $this, 'show_all_market_products' ) );
-		add_filter( 'wc_get_template', 										array( $this, 'remove_variation_cart_button' ), 10, 5 );
+		remove_action( 'woocommerce_before_shop_loop', 						'woocommerce_result_count', 20 );
+		add_action( 'woocommerce_before_shop_loop', 						array( $this, 'woocommerce_result_count' ), 20 );
+		remove_action( 'woocommerce_before_shop_loop', 						'woocommerce_catalog_ordering', 30 );
+		add_action( 'woocommerce_before_shop_loop', 						array( $this, 'woocommerce_catalog_ordering' ), 30 );
 
 		/**
 		 * Allows HTML in term (category, term) descriptions
@@ -120,14 +124,6 @@ class TCCI_WooCommerce {
 
 	} // title_market()
 	
-	public function remove_variation_cart_button( $located, $template_name, $args, $template_path, $default_path ) {
-		
-		if ( 'single-product/add-to-cart/variation-add-to-cart-button.php' !== $template_name ) { return $located; }
-		
-		return '';
-		
-	} // remove_variation_cart_button()
-
 	/**
 	 * Rename the default tabs.
 	 *
@@ -213,6 +209,57 @@ class TCCI_WooCommerce {
 		$query->set( 'posts_per_page', -1 );
 
 	} // show_all_market_products()
+	
+	/**
+	 * Output the product sorting options.
+	 *
+	 * @subpackage	Loop
+	 */
+	public function woocommerce_catalog_ordering() {
+		
+		if ( is_product_tag( 'QP40' ) ) { return; }
+		
+		global $wp_query;
+
+		if ( 1 === $wp_query->found_posts || ! woocommerce_products_will_display() ) {
+			return;
+		}
+
+		$orderby                 = isset( $_GET['orderby'] ) ? wc_clean( $_GET['orderby'] ) : apply_filters( 'woocommerce_default_catalog_orderby', get_option( 'woocommerce_default_catalog_orderby' ) );
+		$show_default_orderby    = 'menu_order' === apply_filters( 'woocommerce_default_catalog_orderby', get_option( 'woocommerce_default_catalog_orderby' ) );
+		$catalog_orderby_options = apply_filters( 'woocommerce_catalog_orderby', array(
+			'menu_order' => __( 'Default sorting', 'woocommerce' ),
+			'popularity' => __( 'Sort by popularity', 'woocommerce' ),
+			'rating'     => __( 'Sort by average rating', 'woocommerce' ),
+			'date'       => __( 'Sort by newness', 'woocommerce' ),
+			'price'      => __( 'Sort by price: low to high', 'woocommerce' ),
+			'price-desc' => __( 'Sort by price: high to low', 'woocommerce' )
+		) );
+
+		if ( ! $show_default_orderby ) {
+			unset( $catalog_orderby_options['menu_order'] );
+		}
+
+		if ( 'no' === get_option( 'woocommerce_enable_review_rating' ) ) {
+			unset( $catalog_orderby_options['rating'] );
+		}
+
+		wc_get_template( 'loop/orderby.php', array( 'catalog_orderby_options' => $catalog_orderby_options, 'orderby' => $orderby, 'show_default_orderby' => $show_default_orderby ) );
+	
+	} // woocommerce_catalog_ordering()
+	
+	/**
+	 * Output the result count text (Showing x - x of x results).
+	 *
+	 * @subpackage	Loop
+	 */
+	public function woocommerce_result_count() {
+		
+		if ( is_product_tag( 'QP40' ) ) { return; }
+		
+		wc_get_template( 'loop/result-count.php' );
+		
+	} // woocommerce_result_count()
 
 	/**
 	 * Beginning wrapper tags for theme compatibility
