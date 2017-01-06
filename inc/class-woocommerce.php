@@ -45,6 +45,7 @@ class TCCI_WooCommerce {
 		add_action( 'woocommerce_before_shop_loop', 						array( $this, 'woocommerce_result_count' ), 20 );
 		remove_action( 'woocommerce_before_shop_loop', 						'woocommerce_catalog_ordering', 30 );
 		add_action( 'woocommerce_before_shop_loop', 						array( $this, 'woocommerce_catalog_ordering' ), 30 );
+		add_action( 'woocommerce_after_shop_loop', 							array( $this, 'add_form_to_tag_archive' ), 10, 1 );
 
 		/**
 		 * Allows HTML in term (category, term) descriptions
@@ -58,6 +59,17 @@ class TCCI_WooCommerce {
 		}
 
 	} // hooks()
+	
+	/**
+	 * Adds the Request a Drawing Formidable form to the bottom of the QP40 tag archive page.
+	 */
+	public function add_form_to_tag_archive() {
+		
+		if ( ! is_product_tag( 'QP40' ) ) { return; }
+		
+		echo FrmFormsController::get_form_shortcode( array( 'id' => 6, 'title' => false, 'description' => false ) );
+		
+	} // add_form_to_tag_archive()
 
 	/**
 	 * Changes the thumbnail size for the shop page.
