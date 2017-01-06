@@ -65,9 +65,9 @@ class TCCI_WooCommerce {
 	 */
 	public function add_form_to_tag_archive() {
 		
-		if ( ! is_product_tag( 'QP40' ) ) { return; }
+		if ( ! is_product_tag() ) { return; }
 		
-		echo FrmFormsController::get_form_shortcode( array( 'id' => 6, 'title' => false, 'description' => false ) );
+		echo FrmFormsController::get_form_shortcode( array( 'id' => 6, 'title' => TRUE, 'description' => false ) );
 		
 	} // add_form_to_tag_archive()
 
@@ -229,7 +229,7 @@ class TCCI_WooCommerce {
 	 */
 	public function woocommerce_catalog_ordering() {
 		
-		if ( is_product_tag( 'QP40' ) ) { return; }
+		if ( is_product_tag() ) { return; }
 		
 		global $wp_query;
 
@@ -267,7 +267,7 @@ class TCCI_WooCommerce {
 	 */
 	public function woocommerce_result_count() {
 		
-		if ( is_product_tag( 'QP40' ) ) { return; }
+		if ( is_product_tag() ) { return; }
 		
 		wc_get_template( 'loop/result-count.php' );
 		
