@@ -151,10 +151,14 @@ class TCCI_Utilities {
 
 		$title = sanitize_title( $menu_item->title );
 
-		if ( ! in_array( $title, $menu_item->classes ) ) {
+		if ( empty( $menu_item->classes ) || ! is_array( $menu_item->classes ) ) {
 
+			$menu_item->classes[0] = $title;
+
+		} elseif ( ! in_array( $title, $menu_item->classes ) ) {
+			
 			$menu_item->classes[] = $title;
-
+			
 		}
 
 		return $menu_item;
@@ -170,10 +174,10 @@ class TCCI_Utilities {
 	 */
 	public function add_mime_types( $post_mime_types ) {
 
-	    $post_mime_types['application/pdf'] = array( esc_html__( 'PDFs', 'tcci' ), esc_html__( 'Manage PDFs', 'tcci' ), _n_noop( 'PDF <span class="count">(%s)</span>', 'PDFs <span class="count">(%s)</span>' ) );
-	    $post_mime_types['text/x-vcard'] 	= array( esc_html__( 'vCards', 'tcci' ), esc_html__( 'Manage vCards', 'tcci' ), _n_noop( 'vCard <span class="count">(%s)</span>', 'vCards <span class="count">(%s)</span>' ) );
+		$post_mime_types['application/pdf'] = array( esc_html__( 'PDFs', 'tcci' ), esc_html__( 'Manage PDFs', 'tcci' ), _n_noop( 'PDF <span class="count">(%s)</span>', 'PDFs <span class="count">(%s)</span>' ) );
+		$post_mime_types['text/x-vcard'] 	= array( esc_html__( 'vCards', 'tcci' ), esc_html__( 'Manage vCards', 'tcci' ), _n_noop( 'vCard <span class="count">(%s)</span>', 'vCards <span class="count">(%s)</span>' ) );
 
-	    return $post_mime_types;
+		return $post_mime_types;
 
 	} // add_mime_types()
 
@@ -503,7 +507,7 @@ class TCCI_Utilities {
 
 		$defaults['page_template'] = esc_html( 'Page Template', 'tcci' );
 
-	    return $defaults;
+		return $defaults;
 
 	} // page_template_column_head()
 
