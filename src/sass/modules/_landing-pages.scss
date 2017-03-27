@@ -1,7 +1,7 @@
 .features {
 	@include listreset();
 
-	@media screen and (min-width: get( $bps, 'tablet' ) ) {
+	@media only screen and (min-width: get( $bps, 'tablet' ) ) {
 		display 		: flex;
 	}
 
@@ -17,7 +17,7 @@
 
 .four-features {
 
-	@media screen and (min-width: get( $bps, 'tablet' ) ) {
+	@media only screen and (min-width: get( $bps, 'tablet' ) ) {
 		flex-wrap 		: wrap;
 		justify-content : space-between;
 

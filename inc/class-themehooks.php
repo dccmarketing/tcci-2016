@@ -42,7 +42,6 @@ class TCCI_Themehooks {
 
 		add_action( 'tcci_while_after', 		array( $this, 'posts_nav' ) );
 		add_action( 'tcci_while_after', 		array( $this, 'products_featured' ), 10 );
-		add_action( 'tcci_while_after', 		array( $this, 'market_applications' ), 10 );
 		add_action( 'tcci_while_after', 		array( $this, 'products_wrap_begin' ), 15 );
 		add_action( 'tcci_while_after', 		array( $this, 'products_wobble' ), 20 );
 		add_action( 'tcci_while_after', 		array( $this, 'products_swash' ), 30 );
@@ -428,49 +427,6 @@ class TCCI_Themehooks {
 		?></div><!-- .wrap-header --><?php
 
 	} // header_wrap_end()
-
-	/**
-	 * Adds navigation to each market application page.
-	 *
-	 * @exits 		If not the market-applications page.
-	 * @exits 		If there are no terms for product_market.
-	 * @hooked 		tcci_while_after 		10
-	 * @return 		mixed 					Market application navigation.
-	 */
-	public function market_applications() {
-
-		if ( ! is_page( 'market-applications' ) ) { return; }
-
-		$markets = get_terms( 'product_market' );
-
-		if ( empty( $markets ) ) { return; }
-
-		?><ul class="wrap-market-apps"><?php
-
-		foreach ( $markets as $market ) :
-
-			$link 	= get_term_link( $market );
-
-			if ( empty( $link ) ) { continue; }
-
-			$meta 	= get_term_meta( $market->term_id );
-
-			if ( empty( $meta ) ) { continue; }
-
-			$imgsrc = wp_get_attachment_image_src( $meta['market-thumb'][0], 'medium' )[0];
-
-			?><li class="market-app">
-				<a href="<?php echo esc_url( $link ); ?>">
-					<div class="market-img" style="background-image:url(<?php echo esc_url( $imgsrc );?>);"></div>
-					<h3><?php echo esc_html( $market->name ); ?></h3>
-				</a>
-			</li><?php
-
-		endforeach;
-
-		?></ul><?php
-
-	} // market_applications()
 
 	/**
 	 * Displays the market image markup.

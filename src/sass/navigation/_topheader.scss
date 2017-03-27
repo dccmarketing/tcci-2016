@@ -37,7 +37,7 @@
 		margin-bottom 	: 0.75em;
 	}
 
-	@media only screen and (min-width: $bp__laptop - 1) {
+	@media only screen and (min-width: $bp__laptop) {
 		margin-bottom: 0;
 	}
 }

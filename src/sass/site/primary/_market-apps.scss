@@ -2,7 +2,8 @@
 
 }
 
-.wrap-market-apps {
+.wrap-market-apps,
+.wrap-navboxes {
 	@include listreset();
 	display 		: flex;
 	flex-wrap 		: wrap;
@@ -13,7 +14,8 @@
 	}
 }
 
-.market-app {
+.market-app,
+.navbox {
 	border 		: 1px solid $color__light;
 	margin 		: 1%;
 	transition 	: $trans__default;
@@ -31,7 +33,8 @@
 		background-color: $color__orange;
 	}
 
-	.market-img {
+	.market-img,
+	.navbox-img {
 		background-position : center center;
 		background-repeat 	: no-repeat;
 		background-size 	: cover;

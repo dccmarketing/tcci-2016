@@ -49,7 +49,7 @@ class TCCI_Utilities {
 		add_action( 'save_post', 						array( $this, 'category_transient_flusher' ) );
 		//add_filter( 'wp_setup_nav_menu_item', 			array( $this, 'add_menu_title_as_class' ), 10, 1 );
 		//add_filter( 'wp_nav_menu_container_allowedtags', array( $this, 'allow_section_tags_as_containers' ), 10, 1 );
-
+		
 	} // hooks()
 
 	public function setup() {
@@ -221,7 +221,7 @@ class TCCI_Utilities {
 		?><style>
 			.market-img {background-image:url(<?php echo esc_url( $image ); ?>);}
 
-			@media screen and (max-width: 767px){
+			@media only screen and (max-width: 767px){
 				.market-img {background-image:url() !important;}
 			}
 
@@ -402,7 +402,7 @@ class TCCI_Utilities {
 		return $return;
 
 	} // fonts_url()
-
+	
 	/**
 	 * Converts the search input button to an HTML5 button element
 	 *

@@ -27,7 +27,7 @@
 	ul {
 		@include listreset();
 
-		@media screen and (min-width: get( $bps, 'sidemenu' )) {
+		@media only screen and (min-width: get( $bps, 'sidemenu' )) {
 			display 		: flex;
 			flex-wrap 		: wrap;
 			justify-content : center;
@@ -37,12 +37,12 @@
 	li {
 		padding: 0.5em 0;
 
-		@media screen and (min-width: get( $bps, 'sidemenu' )) and (max-width: (get( $bps, 'footer' ) - 1)) {
+		@media only screen and (min-width: get( $bps, 'sidemenu' )) and (max-width: (get( $bps, 'footer' ) - 1)) {
 			padding : 1em 0;
 			width 	: 50%;
 		}
 
-		@media screen and (min-width: get( $bps, 'footer' )) {
+		@media only screen and (min-width: get( $bps, 'footer' )) {
 			margin 	: 0.5em 0;
 			padding : 0 0.5em;
 

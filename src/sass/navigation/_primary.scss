@@ -29,13 +29,13 @@
 
 			ul {
 
-				@media only screen and (min-width: $bp__sidemenu + 1) {
+				@media only screen and (min-width: $bp__sidemenu) {
 					left: 100%;
 					top	: 0;
 				}
 
 				a {
-					@media only screen and (max-width: $bp__sidemenu) {
+					@media only screen and (max-width: $bp__sidemenu - 1) {
 						border-left : none;
 						padding 	: 0.5em 3em;
 					}
@@ -43,11 +43,11 @@
 			}
 
 			a {
-				@media only screen and (max-width: $bp__sidemenu) {
+				@media only screen and (max-width: $bp__sidemenu - 1) {
 					padding: 0.5em 2em;
 				}
 
-				@media only screen and (min-width: $bp__sidemenu + 1) {
+				@media only screen and (min-width: $bp__sidemenu) {
 					color 		: get( $text, 'submenu' );
 					padding 	: 0.5em 1em;
 					white-space : nowrap;
@@ -60,7 +60,7 @@
 
 				&:last-child {
 
-					@media only screen and (max-width: $bp__sidemenu) {
+					@media only screen and (max-width: $bp__sidemenu - 1) {
 						padding-bottom: 0;
 					}
 				}
@@ -88,7 +88,7 @@
 		&.focus {
 
 			> .wrap-submenu ul {
-				@media only screen and (min-width: $bp__sidemenu + 1) {
+				@media only screen and (min-width: $bp__sidemenu) {
 					display 	: block;
 					opacity 	: 1;
 					visibility 	: visible;
@@ -111,7 +111,7 @@
 		text-decoration	: none;
 		text-transform 	: uppercase;
 
-		@media only screen and (min-width: $bp__sidemenu + 1) {
+		@media only screen and (min-width: $bp__sidemenu) {
 			color: get( $text, 'menu', 'base' );
 		}
 
@@ -129,7 +129,7 @@
 	.current-menu-parent,
 	.current_page_ancestor {
 
-		@media only screen and (min-width: $bp__sidemenu + 1) {
+		@media only screen and (min-width: $bp__sidemenu) {
 			background-color: get( $bgs, 'menu', 'current' );
 		}
 
@@ -189,7 +189,7 @@
 		}
 
 		 > li {
-		 	@media only screen and (max-width: $bp__laptop - 1) {
+			 @media only screen and (max-width: $bp__laptop - 1) {
 				position: relative;
 
 				&.menu-item-has-children {
@@ -216,13 +216,13 @@
 				}
 			}
 
-		 	 > a {
+			  > a {
 				padding: 1.5em 1em;
 			}
 		}
 
 		> a {
-			@media only screen and (min-width: $bp__sidemenu + 1) {
+			@media only screen and (min-width: $bp__sidemenu) {
 				color: get( $text, 'menu', 'base' );
 			}
 		}

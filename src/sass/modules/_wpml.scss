@@ -6,7 +6,7 @@ $langmarg: 1em;
 	max-width 		: 400px;
 	padding-left 	: 2em;
 
-	@media only screen and (min-width: $bp__sidemenu + 1) {
+	@media only screen and (min-width: $bp__sidemenu) {
 		background-color: $color__orange;
 		margin-bottom 	: 0;
 		margin-right 	: 0;
@@ -16,7 +16,7 @@ $langmarg: 1em;
 		transform 		: $skew__tcci;
 	}
 
-	@media only screen and (min-width: $bp__sidemenu + 1) and (max-width: $bp__tablet - 1) {
+	@media only screen and (min-width: $bp__sidemenu) and (max-width: $bp__tablet - 1) {
 		margin-left: 0.25em;
 	}
 
@@ -26,7 +26,7 @@ $langmarg: 1em;
 		margin-left 	: 0;
 	}
 
-	@media only screen and (min-width: $bp__laptop - 1) {
+	@media only screen and (min-width: $bp__laptop) {
 		margin-bottom: 0;
 	}
 }
@@ -39,7 +39,7 @@ $langmarg: 1em;
 	width 			: 100%;
 
 	li {
-		@media only screen and (max-width: $bp__sidemenu) {
+		@media only screen and (max-width: $bp__sidemenu - 1) {
 			width: calc( 100% - #{$langmarg*2} );
 		}
 
@@ -56,7 +56,7 @@ $langmarg: 1em;
 		}
 	}
 
-	@media only screen and (min-width: $bp__sidemenu + 1) {
+	@media only screen and (min-width: $bp__sidemenu) {
 		transform 		: $unskew__tcci translateY(-50%);
 	}
 }

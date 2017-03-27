@@ -72,7 +72,7 @@ function tcci_get_image_id( $image_url ) {
 					)
 				);
 
-    return $attachment[0];
+	return $attachment[0];
 
 } // tcci_get_image_id()
 
