@@ -50,6 +50,8 @@ class TCCI_Utilities {
 		//add_filter( 'wp_setup_nav_menu_item', 			array( $this, 'add_menu_title_as_class' ), 10, 1 );
 		//add_filter( 'wp_nav_menu_container_allowedtags', array( $this, 'allow_section_tags_as_containers' ), 10, 1 );
 		
+		add_action( 'image_size_names_choose', 			array( $this, 'custom_image_sizes' ) );
+		
 	} // hooks()
 
 	public function setup() {
@@ -123,6 +125,7 @@ class TCCI_Utilities {
 		 * Create custom image sizes.
 		 */
 		add_image_size( 'product_thumb', 80, 80 );
+		add_image_size( 'medium_thumb', 300, 225, true );
 
 	} // setup()
 
@@ -253,6 +256,20 @@ class TCCI_Utilities {
 		$GLOBALS['content_width'] = apply_filters( 'tcci_content_width', 640 );
 
 	} // content_width()
+	
+	/**
+	 * Adds custom image sizes to the size select field for galleries.
+	 * 
+	 * @param 		array 		$sizes 		The image sizes array
+	 * @return 		array 					The modified image sizes array.
+	 */
+	public function custom_image_sizes( $sizes ) {
+		
+		return array_merge( $sizes, array(
+				'medium_thumb' => __( 'Medium Thumb' )
+		) );
+		
+	} // custom_image_sizes()
 
 	/**
 	 * Adds support for additional MIME types to WordPress
@@ -380,7 +397,7 @@ class TCCI_Utilities {
 	public static function fonts_url() {
 
 		$return 	= '';
-		$families 	= '';
+		$families 	= array();
 		$fonts[] 	= array( 'font' => 'Titillium Web', 'weights' => '400,300,600,700', 'translate' => esc_html_x( 'on', 'Titillium Web font: on or off', 'tcci' ) );
 
 		foreach ( $fonts as $font ) {

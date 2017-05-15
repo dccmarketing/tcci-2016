@@ -1,17 +1,25 @@
 .alignleft {
-	display 		: inline;
-	float 			: left;
-	margin-right 	: 1.5em;
-	margin-bottom 	: 1em;
-	max-width 		: 50%;
+	display: block;
+	
+	@media only screen and (min-width: $bp__tablet) {
+		display 		: inline;
+		float 			: left;
+		margin-right 	: 1.5em;
+		margin-bottom 	: 1em;
+		max-width 		: 50%;
+	}
 }
 
 .alignright {
-	display 		: inline;
-	float 			: right;
-	margin-bottom 	: 1em;
-	margin-left 	: 1.5em;
-	max-width 		: 50%;
+	display: block;
+	
+	@media only screen and (min-width: $bp__tablet) {
+		display 		: inline;
+		float 			: right;
+		margin-bottom 	: 1em;
+		margin-left 	: 1.5em;
+		max-width 		: 50%;
+	}
 }
 
 .aligncenter {

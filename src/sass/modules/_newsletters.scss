@@ -1,12 +1,33 @@
 .newsletter {
 	background-color: $color__gray;
+	padding-top: 0;
 
-	.content {
+	.entry-content {
 		padding: 1em 2em;
 
 		p {
 			margin: 0 0 1.5em;
 		}
+	}
+	
+	.entry-header {
+		padding: 0;
+	}
+	
+	.entry-title {
+		margin	: 0;
+		padding	: 1em;
+	}
+	
+	main {
+		background-color: $color__light;
+	}
+}
+
+.category-newsletters {
+	
+	table {
+		margin: 0;
 	}
 }
 

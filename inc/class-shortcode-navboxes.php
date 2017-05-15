@@ -30,8 +30,10 @@ class TCCI_Shortcode_Navboxes {
 	 */
 	public function shortcode_navboxes( $atts, $content = null ) {
 
-		$defaults['type'] 		= 'pages'; // Could be: pages, cats, tax
+		$defaults['type'] 		= 'pages'; // Could be: pages, cats, tax, markets
 		$defaults['include']	= array();
+		$defaults['layout'] 	= 'third'; 	// Could be: full, half, third, fourth.
+											// Could also include image sizes: short - 150px, tall - 250px
 		$defaults['terms'] 		= '';
 		$args					= shortcode_atts( $defaults, $atts, 'navboxes' );
 		
@@ -50,6 +52,10 @@ class TCCI_Shortcode_Navboxes {
 		} elseif ( 'tax' === $args['type'] ) {
 			
 			$items = get_terms( $args['terms'] );
+			
+		} elseif ( 'markets' === $args['type'] ) {
+			
+			$items = get_terms( 'product_market' );
 			
 		}
 		
@@ -95,8 +101,8 @@ class TCCI_Shortcode_Navboxes {
 				
 			}
 
-			?><li class="navbox">
-				<a href="<?php echo esc_url( $link ); ?>"><?php
+			?><li class="navbox <?php echo esc_attr( $args['layout'] ); ?>">
+				<a class="navbox-link" href="<?php echo esc_url( $link ); ?>"><?php
 				
 					if ( ! empty( $imgsrc ) ) :
 						

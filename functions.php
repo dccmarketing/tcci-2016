@@ -46,7 +46,6 @@ $classes[] = 'Customizer';
 $classes[] = 'Menukit';
 $classes[] = 'Metabox_Post_Format';
 $classes[] = 'Shortcode_Listmenu';
-$classes[] = 'Shortcode_Markets';
 $classes[] = 'Shortcode_Navboxes';
 $classes[] = 'Shortcode_Search';
 $classes[] = 'Now_Hiring';

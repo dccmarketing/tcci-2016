@@ -12,53 +12,55 @@ get_header();
 
 			/**
 			 * The tcci_while_before action hook
+			 *
+			 * @hooked 		newsletter_header_image		10
 			 */
 			do_action( 'tcci_while_before' );
 
 			while ( have_posts() ) : the_post();
+			
+				the_title( '<h1 class="entry-title">', '</h1>' );
+				
+				?><img class="header-image" src="https://tccimfg.com/wp-content/uploads/2014/04/ENG_H.jpeg"><?php
 
 				/**
 				 * The tcci_entry_before action hook
 				 */
 				do_action( 'tcci_entry_before' );
 
-				if ( ! empty( $fields['header_image'] ) ) {
+				if ( ! empty( $fields['posts'] ) ) :
 
-					?><img class="header-image" src="<?php echo esc_url( $fields['header_image'] ); ?>"><?php
+					foreach ( $fields['posts'] as $block ) :
+						
+						?><article id="post-<?php the_ID(); ?>" <?php post_class(); ?>><?php
+						
+						set_query_var( 'story', $block['post'] );
+						get_template_part( 'template-parts/newsletter/' . $block['design'] );
+						
+						?></article><!-- #post-## --><?php
+						
+					endforeach;
 
-				}
-
-				if ( ! empty( $fields['content_block'] ) ) {
-
-					foreach ( $fields['content_block'] as $block ) {
-
-						set_query_var( 'block', $block );
-						get_template_part( 'template-parts/newsletter/block', $block['chooser'] );
-
-					}
-
-				}
-
-				if ( ! empty( $fields['footer_image'] ) ) {
-
-					?><img class="footer-image" src="<?php echo esc_url( $fields['footer_image'] ); ?>"><?php
-
-				}
+				endif;
 
 				/**
 				 * The tcci_entry_after action hook
 				 *
-				 * @hooked 		comments 		10
+				 * @hooked 		comments		10
 				 */
 				do_action( 'tcci_entry_after' );
+				
+				?><img class="footer-image" src="https://tccimfg.com/wp-content/uploads/2017/05/5-2016-nl-part9.jpg"><?php
 
 			endwhile; // loop
 
 			/**
 			 * The tcci_while_after action hook
+			 *
+			 * @hooked 		newsletter_footer_image		10
 			 */
 			do_action( 'tcci_while_after' );
-
+			
 		?></main><!-- #main -->
 	</div><!-- #primary --><?php
 
